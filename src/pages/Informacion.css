@@ -1,0 +1,40 @@
+/* Importar la fuente que usamos */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+/* Animación para el fondo degradado */
+@keyframes gradient-animation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animated-background {
+  background: linear-gradient(-45deg, #f8f9fa, #e9ecef, #f8f9fa, #dee2e6);
+  background-size: 400% 400%;
+  animation: gradient-animation 15s ease infinite;
+}
+
+/* Animaciones de entrada de elementos */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in { 
+  animation: fadeIn 0.5s ease-out forwards; 
+}
+
+.fade-in-up { 
+  animation: fadeInUp 0.5s ease-out forwards; 
+}
+
+/* Animación para que las tarjetas aparezcan una por una */
+.clickable-card-animation {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+}

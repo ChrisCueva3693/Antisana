@@ -1,13 +1,409 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Fuentes principales del proyecto */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap');
+
+/* ===== VARIABLES DE COLOR INSPIRADAS EN EL ANTISANA ===== */
+:root {
+  /* Paleta Principal del Páramo */
+  --color-paramo-dark: #1a2f1f;      /* Verde oscuro profundo del páramo */
+  --color-paramo-primary: #1e392a;    /* Verde principal del proyecto */
+  --color-paramo-medium: #2d5a3d;     /* Verde medio de la vegetación */
+  --color-paramo-light: #3a5a40;      /* Verde claro de los arbustos */
+  --color-paramo-soft: #588157;       /* Verde suave de los pastos */
+  
+  /* Paleta Dorada del Sol Andino */
+  --color-sun-gold: #d4a956;          /* Oro brillante del sol */
+  --color-sun-primary: #c29346;       /* Oro principal */
+  --color-sun-dark: #a57c39;          /* Oro oscuro */
+  --color-sun-bronze: #8b6914;        /* Bronce profundo */
+  
+  /* Paleta de la Niebla y Nubes */
+  --color-mist-light: #f8faf9;        /* Blanco niebla */
+  --color-mist-soft: #e8f1ec;         /* Verde muy claro */
+  --color-cloud-gray: #b8c5bc;        /* Gris verdoso */
+  --color-storm-gray: #6b7c73;        /* Gris tormenta */
+  
+  /* Paleta del Agua */
+  --color-water-crystal: #e3f2fd;     /* Azul cristalino */
+  --color-water-stream: #90caf9;      /* Azul arroyo */
+  --color-water-deep: #1976d2;        /* Azul profundo */
+  
+  /* Colores de Estado y Alertas */
+  --color-earth-brown: #5d4e37;       /* Marrón tierra */
+  --color-danger-red: #c62828;        /* Rojo alerta */
+  --color-success-green: #2e7d32;     /* Verde éxito */
+  --color-warning-amber: #f57f17;     /* Ámbar advertencia */
+  
+  /* Sombras y Efectos */
+  --shadow-soft: 0 2px 12px rgba(30, 57, 42, 0.08);
+  --shadow-medium: 0 4px 20px rgba(30, 57, 42, 0.15);
+  --shadow-strong: 0 8px 32px rgba(30, 57, 42, 0.25);
+  --shadow-glow: 0 0 20px rgba(194, 147, 70, 0.3);
+  
+  /* Gradientes Naturales */
+  --gradient-paramo: linear-gradient(135deg, var(--color-paramo-primary) 0%, var(--color-paramo-medium) 100%);
+  --gradient-sunset: linear-gradient(135deg, var(--color-sun-gold) 0%, var(--color-sun-primary) 50%, var(--color-sun-dark) 100%);
+  --gradient-mist: linear-gradient(180deg, var(--color-mist-light) 0%, var(--color-mist-soft) 100%);
+  --gradient-sky: linear-gradient(180deg, var(--color-water-crystal) 0%, var(--color-water-stream) 100%);
+  
+  /* Transiciones Suaves */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-gentle: all 0.2s ease-out;
+  --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
+/* ===== RESET Y CONFIGURACIÓN GLOBAL ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  line-height: 1.6;
+  color: var(--color-paramo-primary);
+  background: var(--gradient-mist);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ===== TIPOGRAFÍA MEJORADA ===== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-paramo-dark);
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  background: var(--gradient-sunset);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--color-paramo-primary);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--color-paramo-medium);
+}
+
+p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--color-storm-gray);
+  margin-bottom: 1.2rem;
+}
+
+/* ===== ELEMENTOS INTERACTIVOS ===== */
+button {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  background: var(--gradient-sunset);
+  color: white;
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-primary:hover {
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-secondary {
+  background: var(--gradient-paramo);
+  color: white;
+  box-shadow: var(--shadow-soft);
+}
+
+/* ===== EFECTOS VISUALES Y ANIMACIONES ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.fade-in-left {
+  animation: fadeInLeft 0.8s ease-out forwards;
+}
+
+.fade-in-right {
+  animation: fadeInRight 0.8s ease-out forwards;
+}
+
+.float-gentle {
+  animation: floatGentle 3s ease-in-out infinite;
+}
+
+/* ===== UTILIDADES Y CLASES AUXILIARES ===== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+.mb-5 { margin-bottom: 3rem; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+.mt-5 { margin-top: 3rem; }
+
+/* ===== EFECTOS DE FONDO DINÁMICOS ===== */
+.animated-background {
+  position: relative;
+  background: linear-gradient(135deg, 
+    var(--color-mist-light) 0%, 
+    var(--color-mist-soft) 25%, 
+    var(--color-water-crystal) 50%, 
+    var(--color-mist-soft) 75%, 
+    var(--color-mist-light) 100%
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 50% 100%; }
+  50% { background-position: 100% 50%; }
+  75% { background-position: 50% 0%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animated-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(194, 147, 70, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(58, 90, 64, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(144, 202, 249, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* ===== CARDS Y COMPONENTES ===== */
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition-smooth);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-strong);
+}
+
+.card-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ===== SCROLLBAR PERSONALIZADA ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-mist-soft);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gradient-paramo);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-paramo-primary);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+  
+  p {
+    font-size: 1rem;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  .card {
+    padding: 1.5rem;
+  }
+}
+
+/* ===== MEJORAS DE ACCESIBILIDAD ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Para usuarios que prefieren alto contraste */
+@media (prefers-contrast: high) {
+  :root {
+    --color-paramo-primary: #000000;
+    --color-storm-gray: #333333;
+  }
+}
+
+/* ===== FOCUS STATES MEJORADOS ===== */
+*:focus {
+  outline: 2px solid var(--color-sun-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--color-sun-primary);
+  outline-offset: 2px;
+}
+
+/* ===== CÓDIGO PARA ELEMENTOS DE CÓDIGO ===== */
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  background-color: var(--color-mist-soft);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: var(--color-paramo-dark);
+}
+
+pre {
+  background-color: var(--color-mist-soft);
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+pre code {
+  background: none;
+  padding: 0;
 }

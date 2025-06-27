@@ -1,43 +1,178 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#1e392a" />
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="Reserva Ecológica Antisana - Guardián del Agua Andina. Explora la biodiversidad y los ecosistemas únicos del páramo ecuatoriano."
     />
+    <meta name="keywords" content="Antisana, reserva ecológica, páramo, Ecuador, biodiversidad, agua, ecosistema andino" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    
+    <!-- Fuentes de Google optimizadas para el tema natural -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Meta tags mejoradas para SEO -->
+    <meta property="og:title" content="Reserva Ecológica Antisana - Guardián del Agua Andina" />
+    <meta property="og:description" content="Descubre la majestuosa reserva ecológica Antisana, hogar del cóndor andino y fuente vital de agua para Ecuador." />
+    <meta property="og:type" content="website" />
+    
+    <title>Antisana - Guardián del Agua Andina</title>
+    
+    <style>
+      /* Preloader con temática natural */
+      #preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #1e392a 0%, #2d5a3d 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 1;
+        transition: opacity 0.5s ease-out;
+      }
+      
+      #preloader.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      
+      .mountain-loader {
+        width: 80px;
+        height: 80px;
+        position: relative;
+        margin-bottom: 20px;
+      }
+      
+      .mountain-loader::before,
+      .mountain-loader::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: 25px solid transparent;
+        border-right: 25px solid transparent;
+        border-bottom: 40px solid #c29346;
+        animation: mountainPulse 1.5s ease-in-out infinite alternate;
+      }
+      
+      .mountain-loader::before {
+        left: 10px;
+        animation-delay: -0.3s;
+      }
+      
+      .mountain-loader::after {
+        right: 10px;
+      }
+      
+      @keyframes mountainPulse {
+        0% { transform: scale(0.8); opacity: 0.6; }
+        100% { transform: scale(1.2); opacity: 1; }
+      }
+      
+      .loader-text {
+        color: #c29346;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.2rem;
+        font-weight: 500;
+        letter-spacing: 2px;
+        animation: textGlow 2s ease-in-out infinite alternate;
+      }
+      
+      @keyframes textGlow {
+        0% { opacity: 0.7; }
+        100% { opacity: 1; text-shadow: 0 0 10px rgba(194, 147, 70, 0.3); }
+      }
+      
+      /* Cursor personalizado */
+      body {
+        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="%23c29346" opacity="0.3"/><circle cx="10" cy="10" r="3" fill="%23c29346"/></svg>'), auto;
+      }
+      
+      a, button {
+        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="%23c29346" opacity="0.5"/><circle cx="10" cy="10" r="4" fill="%23c29346"/></svg>'), pointer;
+      }
+    </style>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <!-- Preloader con temática del Antisana -->
+    <div id="preloader">
+      <div class="mountain-loader"></div>
+      <div class="loader-text">ANTISANA</div>
+    </div>
+    
+    <noscript>
+      <div style="text-align: center; padding: 50px; font-family: Inter, sans-serif; color: #1e392a;">
+        <h2>🏔️ Reserva Ecológica Antisana</h2>
+        <p>Necesitas habilitar JavaScript para explorar esta experiencia interactiva sobre el guardián del agua andina.</p>
+      </div>
+    </noscript>
+    
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    
+    <script>
+      // Script para ocultar el preloader cuando la página esté cargada
+      window.addEventListener('load', function() {
+        const preloader = document.getElementById('preloader');
+        setTimeout(() => {
+          preloader.classList.add('hidden');
+          setTimeout(() => {
+            preloader.style.display = 'none';
+          }, 500);
+        }, 1000);
+      });
+      
+      // Efecto de partículas flotantes (opcional)
+      function createFloatingParticles() {
+        const particles = [];
+        const colors = ['#c29346', '#588157', '#3a5a40'];
+        
+        for (let i = 0; i < 15; i++) {
+          const particle = document.createElement('div');
+          particle.style.cssText = `
+            position: fixed;
+            width: ${Math.random() * 4 + 2}px;
+            height: ${Math.random() * 4 + 2}px;
+            background: ${colors[Math.floor(Math.random() * colors.length)]};
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: ${Math.random() * 0.5 + 0.2};
+            z-index: 1;
+            left: ${Math.random() * 100}vw;
+            top: ${Math.random() * 100}vh;
+            animation: floatParticle ${Math.random() * 20 + 10}s linear infinite;
+          `;
+          
+          document.body.appendChild(particle);
+          particles.push(particle);
+        }
+      }
+      
+      // CSS para la animación de partículas
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes floatParticle {
+          0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+          10% { opacity: 0.6; }
+          90% { opacity: 0.6; }
+          100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+      `;
+      document.head.appendChild(style);
+      
+      // Inicializar partículas después de cargar
+      setTimeout(createFloatingParticles, 2000);
+    </script>
   </body>
 </html>

@@ -356,7 +356,7 @@
   padding: 1rem;
   border-radius: 0.75rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  z-index: 1000; /* Asegura que esté sobre el mapa */
+  z-index: 1000;
   min-width: 200px;
 }
 
@@ -427,7 +427,7 @@
 
 /* --- POPUP PERSONALIZADO --- */
 .leaflet-popup-pane {
-  z-index: 1100 !important; /* Asegura que el popup de Leaflet tenga un z-index alto */
+  z-index: 1100 !important;
 }
 
 .popup-content {
@@ -467,6 +467,7 @@
 .modal-overlay {
   position: fixed; 
   inset: 0; 
+  z-index: 2000;
   display: flex; 
   align-items: center; 
   justify-content: center;
@@ -474,7 +475,6 @@
   backdrop-filter: blur(8px);
   animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   padding: 1rem;
-  z-index: 2000; /* <<<<<<< ¡LA CORRECCIÓN CLAVE ESTÁ AQUÍ! */
 }
 
 .modal-overlay-exit { 
@@ -532,142 +532,63 @@
   50% { transform: translateY(-10px); }
 }
 
-.modal-station-header {
-  position: relative;
-  z-index: 2;
-}
+.modal-station-header { position: relative; z-index: 2; }
+.station-type-badge { display: inline-block; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); padding: 0.5rem 1rem; border-radius: 2rem; font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem; border: 1px solid rgba(255, 255, 255, 0.3); }
+.modal-station-header .station-name { font-size: 2rem; font-weight: 700; margin: 0 0 0.5rem 0; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); }
+.modal-station-header .station-code { font-size: 1rem; opacity: 0.9; margin: 0; }
+.modal-close-button { position: absolute; top: 1rem; right: 1rem; width: 50px; height: 50px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); color: white; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; z-index: 10; }
+.modal-close-button:hover { background: rgba(255, 255, 255, 0.3); transform: scale(1.1); }
 
-.station-type-badge {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  padding: 0.5rem 1rem;
-  border-radius: 2rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
+.modal-body { padding: 2rem; overflow-y: auto; max-height: calc(90vh - 250px); }
+.modal-header { text-align: center; margin-bottom: 2rem; }
+.modal-title { font-size: 1.75rem; font-weight: 700; color: #1e392a; margin: 0 0 0.5rem 0; }
+.modal-decoration { width: 100px; height: 4px; background: linear-gradient(90deg, #c29346, #d4a963); margin: 0 auto; border-radius: 2px; }
 
-.modal-station-header .station-name {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0 0 0.5rem 0;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.modal-station-header .station-code {
-  font-size: 1rem;
-  opacity: 0.9;
-  margin: 0;
-}
-
-.modal-close-button {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 10;
-}
-
-.modal-close-button:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.1);
-}
-
-.modal-body {
-  padding: 2rem;
-  overflow-y: auto;
-  max-height: calc(90vh - 250px);
-}
-
-.modal-header {
+.prediction-placeholder {
+  background-color: #f8fafc;
+  border-radius: 1rem;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
   text-align: center;
   margin-bottom: 2rem;
 }
-
-.modal-title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #1e392a;
-  margin: 0 0 0.5rem 0;
-}
-
-.modal-decoration {
-  width: 100px;
-  height: 4px;
-  background: linear-gradient(90deg, #c29346, #d4a963);
-  margin: 0 auto;
-  border-radius: 2px;
-}
-
-.prediction-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.prediction-card {
-  background: linear-gradient(145deg, #ffffff, #f8fafc);
-  border: 1px solid #e2e8f0;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  transition: all 0.3s ease;
+.prediction-chart-image-container {
   position: relative;
+  cursor: pointer;
+  border-radius: 0.75rem;
   overflow: hidden;
+  margin-bottom: 1rem;
 }
-
-.prediction-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+.prediction-chart-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
 }
-
-.prediction-card.today { border-left: 4px solid #10b981; }
-.prediction-card.tomorrow { border-left: 4px solid #3b82f6; }
-.prediction-card.day-after { border-left: 4px solid #8b5cf6; }
-
-.prediction-icon {
-  font-size: 2.5rem;
+.image-zoom-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.prediction-chart-image-container:hover .image-zoom-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+}
+.chart-description {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
 }
 
-.prediction-info { flex: 1; display: flex; flex-direction: column; gap: 0.25rem; }
-.prediction-day { font-size: 1.125rem; font-weight: 700; color: #1e392a; }
-.prediction-amount { font-size: 1.5rem; font-weight: 800; color: #3a5a40; }
-.prediction-probability { font-size: 0.875rem; color: #6b7280; font-weight: 600; }
-.prediction-condition { font-size: 0.875rem; color: #374151; font-weight: 500; }
-
-.station-details {
-  background: linear-gradient(145deg, #f8fafc, #ffffff);
-  border-radius: 1rem;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  border: 1px solid #e2e8f0;
-}
-
+.station-details { background: linear-gradient(145deg, #f8fafc, #ffffff); border-radius: 1rem; padding: 1.5rem; margin-bottom: 2rem; border: 1px solid #e2e8f0; }
 .details-title { font-size: 1.25rem; font-weight: 700; color: #1e392a; margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.5rem; }
 .details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
 .detail-item { display: flex; align-items: center; gap: 0.75rem; padding: 1rem; background: #ffffff; border-radius: 0.75rem; border: 1px solid #e5e7eb; transition: all 0.3s ease; }
@@ -684,6 +605,27 @@
 .button-text { font-size: 1rem; }
 .button-icon { font-size: 1.125rem; }
 
+/* --- ESTILOS PARA EL LIGHTBOX (IMAGEN AGRANDADA) --- */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000; /* Z-index muy alto para estar por encima de todo */
+  padding: 2rem;
+  animation: fadeIn 0.3s ease;
+}
+.lightbox-image {
+  max-width: 95vw;
+  max-height: 95vh;
+  object-fit: contain;
+  box-shadow: 0 0 50px rgba(0,0,0,0.5);
+  border-radius: 0.5rem;
+}
+
 /* --- RESPONSIVE DESIGN --- */
 @media (max-width: 1200px) {
   .map-content-layout { flex-direction: column; padding: 1rem; }
@@ -696,8 +638,6 @@
   .hero-subtitle { font-size: 1rem; }
   .stats-section { flex-direction: column; gap: 1rem; margin: -1rem 0.5rem 1rem; }
   .stat-number { font-size: 2rem; }
-  .prediction-cards { grid-template-columns: 1fr; }
-  .details-grid { grid-template-columns: 1fr; }
   .modal-content { margin: 0.5rem; max-height: 95vh; }
   .modal-image-container { height: 200px; }
   .modal-station-header .station-name { font-size: 1.5rem; }
@@ -708,3 +648,40 @@
   .action-button { justify-content: center; }
   .prediction-btn { flex: none; }
 }
+
+/* --- INICIO DE NUEVOS ESTILOS PARA LAS RECOMENDACIONES --- */
+.recommendations-container {
+    text-align: left;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #374151;
+}
+.recommendations-container p {
+    margin-bottom: 1rem;
+}
+.recommendations-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e392a;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+.recommendations-section {
+    margin-top: 1rem;
+}
+.recommendations-section h5 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #3a5a40;
+    margin-bottom: 0.5rem;
+}
+.recommendations-list {
+    list-style-position: inside;
+    padding-left: 0.5rem;
+    margin: 0;
+}
+.recommendations-list li {
+    margin-bottom: 0.5rem;
+}
+/* --- FIN DE NUEVOS ESTILOS --- */

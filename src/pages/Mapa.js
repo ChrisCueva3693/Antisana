@@ -4,20 +4,37 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './Mapa.css';
 
+// --- Componente para el Lightbox de la Imagen ---
+const ImageLightbox = ({ src, alt, onClose }) => {
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [onClose]);
+
+    return (
+        <div className="lightbox-overlay" onClick={onClose}>
+            <img src={src} alt={alt} className="lightbox-image" />
+        </div>
+    );
+};
+
+
 // --- Componente para el Modal de Predicciones Mejorado ---
 const PredictionModal = ({ station, onClose }) => {
   const [isExiting, setIsExiting] = useState(false);
+  const [isImageZoomed, setIsImageZoomed] = useState(false);
 
-  // >> INICIO DE LA CORRECCIÓN <<
-  // Este useEffect se asegura de que el estado de la animación se reinicie
-  // cada vez que se abre el modal con una nueva estación.
   useEffect(() => {
     if (station) {
       setIsExiting(false);
     }
   }, [station]);
-  // >> FIN DE LA CORRECCIÓN <<
-  
+
   const handleClose = useCallback(() => {
     setIsExiting(true);
     setTimeout(() => {
@@ -28,146 +45,139 @@ const PredictionModal = ({ station, onClose }) => {
   useEffect(() => {
     if (station) {
       document.body.style.overflow = 'hidden';
-
-      const handleKeyDown = (e) => {
-        if (e.key === 'Escape') {
-          handleClose();
-        }
-      };
-      
-      document.addEventListener('keydown', handleKeyDown);
-
-      return () => {
-        document.body.style.overflow = 'unset';
-        document.removeEventListener('keydown', handleKeyDown);
-      };
+      return () => { document.body.style.overflow = 'unset'; };
     }
-  }, [station, handleClose]);
+  }, [station]);
 
   if (!station) return null;
 
-  // Datos simulados de predicción
-  const predictionData = {
-    today: { precipitation: 15.2, probability: 85, condition: 'Lluvia moderada' },
-    tomorrow: { precipitation: 8.7, probability: 60, condition: 'Lluvia ligera' },
-    dayAfter: { precipitation: 3.1, probability: 30, condition: 'Parcialmente nublado' }
-  };
-
   return (
-    <div
-      className={`modal-overlay ${isExiting ? 'modal-overlay-exit' : ''}`}
-      onClick={handleClose}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-title"
-    >
+    <>
       <div
-        className={`modal-content ${isExiting ? 'modal-content-exit' : ''}`}
-        onClick={e => e.stopPropagation()}
+        className={`modal-overlay ${isExiting ? 'modal-overlay-exit' : ''}`}
+        onClick={handleClose}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
       >
-        <div className="modal-image-container">
-          <div className="modal-station-header">
-            <div className="station-type-badge">{station.type}</div>
-            <h2 id="modal-title" className="station-name">{station.name}</h2>
-            <p className="station-code">Código: {station.id}</p>
-          </div>
-          <div className="modal-image-overlay"></div>
-          <button
-            onClick={handleClose}
-            className="modal-close-button"
-            aria-label="Cerrar modal"
-          >
-            ×
-          </button>
-        </div>
-
-        <div className="modal-body">
-          <div className="modal-header">
-            <h3 className="modal-title">Predicción de Precipitación</h3>
-            <div className="modal-decoration"></div>
-          </div>
-
-          <div className="prediction-cards">
-            <div className="prediction-card today">
-              <div className="prediction-icon">🌧️</div>
-              <div className="prediction-info">
-                <span className="prediction-day">Hoy</span>
-                <span className="prediction-amount">{predictionData.today.precipitation} mm</span>
-                <span className="prediction-probability">{predictionData.today.probability}% probabilidad</span>
-                <span className="prediction-condition">{predictionData.today.condition}</span>
-              </div>
+        <div
+          className={`modal-content ${isExiting ? 'modal-content-exit' : ''}`}
+          onClick={e => e.stopPropagation()}
+        >
+          <div className="modal-image-container">
+            <div className="modal-station-header">
+              <div className="station-type-badge">{station.type}</div>
+              <h2 id="modal-title" className="station-name">{station.name}</h2>
+              <p className="station-code">Código: {station.id}</p>
             </div>
-
-            <div className="prediction-card tomorrow">
-              <div className="prediction-icon">🌦️</div>
-              <div className="prediction-info">
-                <span className="prediction-day">Mañana</span>
-                <span className="prediction-amount">{predictionData.tomorrow.precipitation} mm</span>
-                <span className="prediction-probability">{predictionData.tomorrow.probability}% probabilidad</span>
-                <span className="prediction-condition">{predictionData.tomorrow.condition}</span>
-              </div>
-            </div>
-
-            <div className="prediction-card day-after">
-              <div className="prediction-icon">⛅</div>
-              <div className="prediction-info">
-                <span className="prediction-day">Pasado mañana</span>
-                <span className="prediction-amount">{predictionData.dayAfter.precipitation} mm</span>
-                <span className="prediction-probability">{predictionData.dayAfter.probability}% probabilidad</span>
-                <span className="prediction-condition">{predictionData.dayAfter.condition}</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="station-details">
-            <h4 className="details-title">📊 Detalles de la Estación</h4>
-            <div className="details-grid">
-              <div className="detail-item">
-                <span className="detail-icon">📍</span>
-                <div className="detail-info">
-                  <span className="detail-label">Ubicación</span>
-                  <span className="detail-value">Lat: {station.position[0].toFixed(4)}, Lng: {station.position[1].toFixed(4)}</span>
-                </div>
-              </div>
-              <div className="detail-item">
-                <span className="detail-icon">🎯</span>
-                <div className="detail-info">
-                  <span className="detail-label">Tipo</span>
-                  <span className="detail-value">{station.type}</span>
-                </div>
-              </div>
-              <div className="detail-item">
-                <span className="detail-icon">📡</span>
-                <div className="detail-info">
-                  <span className="detail-label">Estado</span>
-                  <span className="detail-value status-active">Activa</span>
-                </div>
-              </div>
-              <div className="detail-item">
-                <span className="detail-icon">⏰</span>
-                <div className="detail-info">
-                  <span className="detail-label">Última actualización</span>
-                  <span className="detail-value">Hace 15 minutos</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="modal-footer">
+            <div className="modal-image-overlay"></div>
             <button
               onClick={handleClose}
-              className="modal-action-button"
-              autoFocus
+              className="modal-close-button"
+              aria-label="Cerrar modal"
             >
-              <span className="button-text">Entendido</span>
-              <span className="button-icon">✓</span>
+              ×
             </button>
+          </div>
+
+          <div className="modal-body">
+            <div className="modal-header">
+              <h3 className="modal-title">Análisis Predictivo</h3>
+              <div className="modal-decoration"></div>
+            </div>
+
+            <div className="prediction-placeholder">
+              <div className="prediction-chart-image-container" onClick={() => setIsImageZoomed(true)}>
+                 <img 
+                    src={station.graphImage} 
+                    alt={`Gráfico de predicción para ${station.name}`} 
+                    className="prediction-chart-image"
+                 />
+                 <div className="image-zoom-overlay">
+                    <span>🔍</span> Haz clic para ampliar
+                 </div>
+              </div>
+              
+              <div className="recommendations-container">
+                  <p>
+                      Este gráfico muestra la predicción de precipitación, resaltando posibles sequías y lluvias intensas.
+                  </p>
+                  
+                  <h4 className="recommendations-title">Análisis de Predicción de Precipitaciones 2025</h4>
+                  <p>Recomendaciones para la ciudadanía:</p>
+                  
+                  <div className="recommendations-section">
+                      <h5>Durante sequías:</h5>
+                      <ul className="recommendations-list">
+                          <li>Hacer uso responsable del agua en el hogar y lugares de trabajo.</li>
+                          <li>Evitar el riego excesivo de jardines o el lavado de vehículos.</li>
+                          <li>Mantenerse informado sobre posibles restricciones o cortes programados de agua.</li>
+                          <li>Apoyar medidas de conservación hídrica impulsadas por autoridades locales.</li>
+                      </ul>
+                  </div>
+
+                  <div className="recommendations-section">
+                      <h5>Durante lluvias intensas:</h5>
+                      <ul className="recommendations-list">
+                          <li>Revisar y limpiar canales, alcantarillas y techos para evitar acumulaciones de agua.</li>
+                          <li>Evitar transitar por zonas propensas a deslizamientos o inundaciones.</li>
+                          <li>Tener a mano un kit de emergencia en caso de evacuación.</li>
+                          <li>Seguir las recomendaciones emitidas por el sistema de gestión de riesgos y emergencias.</li>
+                      </ul>
+                  </div>
+
+                  <p>
+                      El monitoreo constante de estos eventos permitirá una mejor preparación y respuesta ante fenómenos climáticos extremos, minimizando riesgos para la población y la infraestructura.
+                  </p>
+              </div>
+
+            </div>
+            
+            <div className="station-details">
+              <h4 className="details-title">📊 Detalles de la Estación</h4>
+              <div className="details-grid">
+                <div className="detail-item">
+                  <span className="detail-icon">📍</span>
+                  <div className="detail-info">
+                    <span className="detail-label">Ubicación</span>
+                    <span className="detail-value">Lat: {station.position[0].toFixed(4)}, Lng: {station.position[1].toFixed(4)}</span>
+                  </div>
+                </div>
+                <div className="detail-item">
+                  <span className="detail-icon">🎯</span>
+                  <div className="detail-info">
+                    <span className="detail-label">Tipo</span>
+                    <span className="detail-value">{station.type}</span>
+                  </div>
+                </div>
+                <div className="detail-item">
+                  <span className="detail-icon">📡</span>
+                  <div className="detail-info">
+                    <span className="detail-label">Estado</span>
+                    <span className="detail-value status-active">Activa</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="modal-footer">
+              <button
+                onClick={handleClose}
+                className="modal-action-button"
+                autoFocus
+              >
+                <span className="button-text">Entendido</span>
+                <span className="button-icon">✓</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      {isImageZoomed && <ImageLightbox src={station.graphImage} alt={`Gráfico de ${station.name}`} onClose={() => setIsImageZoomed(false)} />}
+    </>
   );
 };
+
 
 // --- Componente para Estadísticas Animadas ---
 const AnimatedStat = ({ number, label, suffix = "", delay = 0 }) => {
@@ -245,6 +255,7 @@ const StationCard = ({ station, onDownload, onViewPrediction, delay }) => {
           </div>
         </div>
 
+        {/* --- INICIO DE LA SECCIÓN MODIFICADA --- */}
         <div className="station-actions">
           <button 
             className="action-button prediction-btn"
@@ -255,19 +266,14 @@ const StationCard = ({ station, onDownload, onViewPrediction, delay }) => {
           </button>
           <button 
             className="action-button download-btn csv"
-            onClick={() => onDownload(station, 'csv')}
+            onClick={() => onDownload(station)}
           >
             <span className="btn-icon">📊</span>
             <span className="btn-text">CSV</span>
           </button>
-          <button 
-            className="action-button download-btn excel"
-            onClick={() => onDownload(station, 'excel')}
-          >
-            <span className="btn-icon">📈</span>
-            <span className="btn-text">Excel</span>
-          </button>
+          {/* El botón de Excel ha sido eliminado */}
         </div>
+        {/* --- FIN DE LA SECCIÓN MODIFICADA --- */}
       </div>
 
       <div className="card-particles">
@@ -317,14 +323,39 @@ export default function Mapa() {
   const pluviometricaIcon = createIcon('#3a5a40');
 
   const stations = [
-    { id: 'P43', type: 'Pluviométrica', name: 'Antisana Limboasi', position: [-0.59348, -78.20825] },
-    { id: 'P42', type: 'Pluviométrica', name: 'Antisana Ramón Huañuna', position: [-0.60228, -78.19867] },
+    { 
+      id: 'P43', 
+      type: 'Pluviométrica', 
+      name: 'Antisana Limboasi', 
+      position: [-0.59348, -78.20825],
+      graphImage: '/Solo_Prediccion_Resaltada_P43.png',
+      csvFile: '/Prediccion_Prophet_Diaria_Etiquetada_43.csv' // Ruta al archivo CSV
+    },
+    { 
+      id: 'P42', 
+      type: 'Pluviométrica', 
+      name: 'Antisana Ramón Huañuna', 
+      position: [-0.60228, -78.19867],
+      graphImage: '/Solo_Prediccion_Resaltada_P42.png',
+      csvFile: '/Prediccion_Prophet_Diaria_Etiquetada_42.csv' // Ruta al archivo CSV
+    },
   ];
-
-  const handleDownload = (station, format) => {
-    console.log(`Descargando datos de ${station.name} en formato ${format}`);
-    // Aquí iría la lógica de descarga
+  
+  // --- INICIO DE LA NUEVA FUNCIÓN DE DESCARGA ---
+  const handleDownload = (station) => {
+    // Creamos un enlace temporal en el documento
+    const link = document.createElement('a');
+    link.href = station.csvFile; // Usamos la ruta del archivo CSV de la estación
+    
+    // Asignamos el nombre con el que se descargará el archivo
+    link.setAttribute('download', `${station.id}_prediccion.csv`);
+    
+    // Añadimos el enlace al DOM, hacemos clic en él y lo removemos
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
+  // --- FIN DE LA NUEVA FUNCIÓN DE DESCARGA ---
 
   const handleViewPrediction = (station) => {
     setSelectedStation(station);

@@ -1,0 +1,366 @@
+ds,yhat,Etiqueta
+2025-01-01,2.93,Normal
+2025-01-02,2.67,Normal
+2025-01-03,2.79,Normal
+2025-01-04,3.15,Normal
+2025-01-05,3.23,Normal
+2025-01-06,3.62,Normal
+2025-01-07,3.14,Normal
+2025-01-08,3.01,Normal
+2025-01-09,2.44,Sequía
+2025-01-10,2.41,Sequía
+2025-01-11,2.79,Normal
+2025-01-12,2.98,Normal
+2025-01-13,3.42,Normal
+2025-01-14,2.94,Normal
+2025-01-15,2.81,Normal
+2025-01-16,2.29,Sequía
+2025-01-17,2.36,Sequía
+2025-01-18,2.80,Normal
+2025-01-19,2.92,Normal
+2025-01-20,3.24,Normal
+2025-01-21,2.68,Normal
+2025-01-22,2.60,Normal
+2025-01-23,2.23,Sequía
+2025-01-24,2.38,Sequía
+2025-01-25,2.68,Normal
+2025-01-26,2.50,Sequía
+2025-01-27,2.49,Sequía
+2025-01-28,1.79,Sequía
+2025-01-29,1.81,Sequía
+2025-01-30,1.67,Sequía
+2025-01-31,2.03,Sequía
+2025-02-01,2.47,Sequía
+2025-02-02,2.38,Sequía
+2025-02-03,2.54,Sequía
+2025-02-04,2.06,Sequía
+2025-02-05,2.25,Sequía
+2025-02-06,2.12,Sequía
+2025-02-07,2.29,Sequía
+2025-02-08,2.47,Sequía
+2025-02-09,2.21,Sequía
+2025-02-10,2.38,Sequía
+2025-02-11,2.05,Sequía
+2025-02-12,2.40,Sequía
+2025-02-13,2.35,Sequía
+2025-02-14,2.54,Sequía
+2025-02-15,2.77,Normal
+2025-02-16,2.64,Normal
+2025-02-17,2.92,Normal
+2025-02-18,2.59,Sequía
+2025-02-19,2.84,Normal
+2025-02-20,2.66,Normal
+2025-02-21,2.84,Normal
+2025-02-22,3.18,Normal
+2025-02-23,3.15,Normal
+2025-02-24,3.40,Normal
+2025-02-25,2.82,Normal
+2025-02-26,2.70,Normal
+2025-02-27,2.25,Sequía
+2025-02-28,2.38,Sequía
+2025-03-01,2.87,Normal
+2025-03-02,3.06,Normal
+2025-03-03,3.45,Normal
+2025-03-04,2.95,Normal
+2025-03-05,2.92,Normal
+2025-03-06,2.64,Normal
+2025-03-07,2.96,Normal
+2025-03-08,3.53,Normal
+2025-03-09,3.60,Normal
+2025-03-10,3.72,Normal
+2025-03-11,2.96,Normal
+2025-03-12,2.84,Normal
+2025-03-13,2.63,Normal
+2025-03-14,3.10,Normal
+2025-03-15,3.76,Normal
+2025-03-16,3.85,Normal
+2025-03-17,3.98,Normal
+2025-03-18,3.30,Normal
+2025-03-19,3.27,Normal
+2025-03-20,3.11,Normal
+2025-03-21,3.51,Normal
+2025-03-22,4.02,Normal
+2025-03-23,4.00,Normal
+2025-03-24,4.16,Normal
+2025-03-25,3.58,Normal
+2025-03-26,3.60,Normal
+2025-03-27,3.28,Normal
+2025-03-28,3.32,Normal
+2025-03-29,3.48,Normal
+2025-03-30,3.29,Normal
+2025-03-31,3.51,Normal
+2025-04-01,3.14,Normal
+2025-04-02,3.35,Normal
+2025-04-03,3.14,Normal
+2025-04-04,3.28,Normal
+2025-04-05,3.59,Normal
+2025-04-06,3.63,Normal
+2025-04-07,4.04,Normal
+2025-04-08,3.69,Normal
+2025-04-09,3.73,Normal
+2025-04-10,3.29,Normal
+2025-04-11,3.29,Normal
+2025-04-12,3.65,Normal
+2025-04-13,3.87,Normal
+2025-04-14,4.46,Lluvia Intensa
+2025-04-15,4.22,Normal
+2025-04-16,4.32,Normal
+2025-04-17,3.96,Normal
+2025-04-18,4.09,Normal
+2025-04-19,4.57,Lluvia Intensa
+2025-04-20,4.81,Lluvia Intensa
+2025-04-21,5.29,Lluvia Intensa
+2025-04-22,4.92,Lluvia Intensa
+2025-04-23,4.98,Lluvia Intensa
+2025-04-24,4.70,Lluvia Intensa
+2025-04-25,4.91,Lluvia Intensa
+2025-04-26,5.31,Lluvia Intensa
+2025-04-27,5.24,Lluvia Intensa
+2025-04-28,5.30,Lluvia Intensa
+2025-04-29,4.59,Lluvia Intensa
+2025-04-30,4.53,Lluvia Intensa
+2025-05-01,4.32,Normal
+2025-05-02,4.67,Lluvia Intensa
+2025-05-03,5.13,Lluvia Intensa
+2025-05-04,5.06,Lluvia Intensa
+2025-05-05,5.14,Lluvia Intensa
+2025-05-06,4.53,Lluvia Intensa
+2025-05-07,4.60,Lluvia Intensa
+2025-05-08,4.42,Lluvia Intensa
+2025-05-09,4.60,Lluvia Intensa
+2025-05-10,4.76,Lluvia Intensa
+2025-05-11,4.41,Lluvia Intensa
+2025-05-12,4.38,Lluvia Intensa
+2025-05-13,3.85,Normal
+2025-05-14,4.08,Normal
+2025-05-15,4.02,Normal
+2025-05-16,4.26,Normal
+2025-05-17,4.49,Lluvia Intensa
+2025-05-18,4.26,Normal
+2025-05-19,4.41,Lluvia Intensa
+2025-05-20,4.00,Normal
+2025-05-21,4.24,Normal
+2025-05-22,4.12,Normal
+2025-05-23,4.35,Lluvia Intensa
+2025-05-24,4.70,Lluvia Intensa
+2025-05-25,4.67,Lluvia Intensa
+2025-05-26,4.94,Lluvia Intensa
+2025-05-27,4.45,Lluvia Intensa
+2025-05-28,4.42,Lluvia Intensa
+2025-05-29,4.02,Normal
+2025-05-30,4.12,Normal
+2025-05-31,4.57,Lluvia Intensa
+2025-06-01,4.78,Lluvia Intensa
+2025-06-02,5.25,Lluvia Intensa
+2025-06-03,4.88,Lluvia Intensa
+2025-06-04,4.92,Lluvia Intensa
+2025-06-05,4.64,Lluvia Intensa
+2025-06-06,4.93,Lluvia Intensa
+2025-06-07,5.51,Lluvia Intensa
+2025-06-08,5.67,Lluvia Intensa
+2025-06-09,5.91,Lluvia Intensa
+2025-06-10,5.22,Lluvia Intensa
+2025-06-11,5.04,Lluvia Intensa
+2025-06-12,4.71,Lluvia Intensa
+2025-06-13,5.09,Lluvia Intensa
+2025-06-14,5.77,Lluvia Intensa
+2025-06-15,5.95,Lluvia Intensa
+2025-06-16,6.17,Lluvia Intensa
+2025-06-17,5.48,Lluvia Intensa
+2025-06-18,5.38,Lluvia Intensa
+2025-06-19,5.12,Lluvia Intensa
+2025-06-20,5.48,Lluvia Intensa
+2025-06-21,6.02,Lluvia Intensa
+2025-06-22,6.07,Lluvia Intensa
+2025-06-23,6.25,Lluvia Intensa
+2025-06-24,5.66,Lluvia Intensa
+2025-06-25,5.66,Lluvia Intensa
+2025-06-26,5.37,Lluvia Intensa
+2025-06-27,5.48,Lluvia Intensa
+2025-06-28,5.67,Lluvia Intensa
+2025-06-29,5.45,Lluvia Intensa
+2025-06-30,5.59,Lluvia Intensa
+2025-07-01,5.17,Lluvia Intensa
+2025-07-02,5.39,Lluvia Intensa
+2025-07-03,5.25,Lluvia Intensa
+2025-07-04,5.44,Lluvia Intensa
+2025-07-05,5.73,Lluvia Intensa
+2025-07-06,5.68,Lluvia Intensa
+2025-07-07,6.01,Lluvia Intensa
+2025-07-08,5.65,Lluvia Intensa
+2025-07-09,5.74,Lluvia Intensa
+2025-07-10,5.32,Lluvia Intensa
+2025-07-11,5.23,Lluvia Intensa
+2025-07-12,5.39,Lluvia Intensa
+2025-07-13,5.38,Lluvia Intensa
+2025-07-14,5.80,Lluvia Intensa
+2025-07-15,5.50,Lluvia Intensa
+2025-07-16,5.56,Lluvia Intensa
+2025-07-17,5.09,Lluvia Intensa
+2025-07-18,5.01,Lluvia Intensa
+2025-07-19,5.21,Lluvia Intensa
+2025-07-20,5.19,Lluvia Intensa
+2025-07-21,5.48,Lluvia Intensa
+2025-07-22,4.97,Lluvia Intensa
+2025-07-23,4.87,Lluvia Intensa
+2025-07-24,4.39,Lluvia Intensa
+2025-07-25,4.37,Lluvia Intensa
+2025-07-26,4.57,Lluvia Intensa
+2025-07-27,4.35,Lluvia Intensa
+2025-07-28,4.28,Normal
+2025-07-29,3.40,Normal
+2025-07-30,3.12,Normal
+2025-07-31,2.70,Normal
+2025-08-01,2.89,Normal
+2025-08-02,3.30,Normal
+2025-08-03,3.22,Normal
+2025-08-04,3.27,Normal
+2025-08-05,2.59,Sequía
+2025-08-06,2.58,Sequía
+2025-08-07,2.40,Sequía
+2025-08-08,2.68,Normal
+2025-08-09,2.99,Normal
+2025-08-10,2.75,Normal
+2025-08-11,2.74,Normal
+2025-08-12,2.18,Sequía
+2025-08-13,2.43,Sequía
+2025-08-14,2.50,Sequía
+2025-08-15,2.96,Normal
+2025-08-16,3.39,Normal
+2025-08-17,3.29,Normal
+2025-08-18,3.48,Normal
+2025-08-19,3.09,Normal
+2025-08-20,3.40,Normal
+2025-08-21,3.41,Normal
+2025-08-22,3.78,Normal
+2025-08-23,4.20,Normal
+2025-08-24,4.20,Normal
+2025-08-25,4.47,Lluvia Intensa
+2025-08-26,4.01,Normal
+2025-08-27,4.01,Normal
+2025-08-28,3.60,Normal
+2025-08-29,3.61,Normal
+2025-08-30,3.90,Normal
+2025-08-31,3.95,Normal
+2025-09-01,4.33,Normal
+2025-09-02,3.90,Normal
+2025-09-03,3.87,Normal
+2025-09-04,3.45,Normal
+2025-09-05,3.52,Normal
+2025-09-06,3.90,Normal
+2025-09-07,3.95,Normal
+2025-09-08,4.13,Normal
+2025-09-09,3.38,Normal
+2025-09-10,3.05,Normal
+2025-09-11,2.49,Sequía
+2025-09-12,2.62,Normal
+2025-09-13,3.14,Normal
+2025-09-14,3.29,Normal
+2025-09-15,3.53,Normal
+2025-09-16,2.83,Normal
+2025-09-17,2.62,Normal
+2025-09-18,2.23,Sequía
+2025-09-19,2.48,Sequía
+2025-09-20,3.01,Normal
+2025-09-21,3.11,Normal
+2025-09-22,3.33,Normal
+2025-09-23,2.76,Normal
+2025-09-24,2.75,Normal
+2025-09-25,2.49,Sequía
+2025-09-26,2.66,Normal
+2025-09-27,2.93,Normal
+2025-09-28,2.74,Normal
+2025-09-29,2.84,Normal
+2025-09-30,2.37,Sequía
+2025-10-01,2.58,Sequía
+2025-10-02,2.52,Sequía
+2025-10-03,2.80,Normal
+2025-10-04,3.12,Normal
+2025-10-05,3.04,Normal
+2025-10-06,3.31,Normal
+2025-10-07,2.95,Normal
+2025-10-08,3.11,Normal
+2025-10-09,2.79,Normal
+2025-10-10,2.74,Normal
+2025-10-11,2.83,Normal
+2025-10-12,2.69,Normal
+2025-10-13,3.03,Normal
+2025-10-14,2.75,Normal
+2025-10-15,2.92,Normal
+2025-10-16,2.56,Sequía
+2025-10-17,2.51,Sequía
+2025-10-18,2.67,Normal
+2025-10-19,2.60,Sequía
+2025-10-20,2.92,Normal
+2025-10-21,2.52,Sequía
+2025-10-22,2.55,Sequía
+2025-10-23,2.18,Sequía
+2025-10-24,2.25,Sequía
+2025-10-25,2.53,Sequía
+2025-10-26,2.46,Sequía
+2025-10-27,2.57,Sequía
+2025-10-28,1.86,Sequía
+2025-10-29,1.69,Sequía
+2025-10-30,1.33,Sequía
+2025-10-31,1.61,Sequía
+2025-11-01,2.17,Sequía
+2025-11-02,2.30,Sequía
+2025-11-03,2.56,Sequía
+2025-11-04,2.02,Sequía
+2025-11-05,2.08,Sequía
+2025-11-06,1.97,Sequía
+2025-11-07,2.39,Sequía
+2025-11-08,2.89,Normal
+2025-11-09,2.82,Normal
+2025-11-10,2.87,Normal
+2025-11-11,2.26,Sequía
+2025-11-12,2.42,Sequía
+2025-11-13,2.47,Sequía
+2025-11-14,2.99,Normal
+2025-11-15,3.51,Normal
+2025-11-16,3.44,Normal
+2025-11-17,3.53,Normal
+2025-11-18,3.00,Normal
+2025-11-19,3.16,Normal
+2025-11-20,3.10,Normal
+2025-11-21,3.42,Normal
+2025-11-22,3.78,Normal
+2025-11-23,3.67,Normal
+2025-11-24,3.80,Normal
+2025-11-25,3.23,Normal
+2025-11-26,3.17,Normal
+2025-11-27,2.69,Normal
+2025-11-28,2.60,Normal
+2025-11-29,2.72,Normal
+2025-11-30,2.60,Normal
+2025-12-01,2.87,Normal
+2025-12-02,2.43,Sequía
+2025-12-03,2.43,Sequía
+2025-12-04,2.00,Sequía
+2025-12-05,2.01,Sequía
+2025-12-06,2.32,Sequía
+2025-12-07,2.36,Sequía
+2025-12-08,2.64,Normal
+2025-12-09,2.03,Sequía
+2025-12-10,1.79,Sequía
+2025-12-11,1.24,Sequía
+2025-12-12,1.31,Sequía
+2025-12-13,1.82,Sequía
+2025-12-14,2.07,Sequía
+2025-12-15,2.49,Sequía
+2025-12-16,1.99,Sequía
+2025-12-17,1.88,Sequía
+2025-12-18,1.52,Sequía
+2025-12-19,1.78,Sequía
+2025-12-20,2.36,Sequía
+2025-12-21,2.58,Sequía
+2025-12-22,2.95,Normal
+2025-12-23,2.47,Sequía
+2025-12-24,2.52,Sequía
+2025-12-25,2.30,Sequía
+2025-12-26,2.54,Sequía
+2025-12-27,2.90,Normal
+2025-12-28,2.77,Normal
+2025-12-29,2.85,Normal
+2025-12-30,2.32,Sequía
+2025-12-31,2.48,Sequía

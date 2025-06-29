@@ -1,0 +1,74 @@
+/* --- Grid que contiene las cartas --- */
+.memorama-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 1rem;
+  max-width: 480px;      /* máx. 4 cartas por fila */
+  margin: 2rem auto;
+}
+
+/* --- Carta (wrapper) --- */
+.card {
+  position: relative;
+  aspect-ratio: 1 / 1;   /* cuadrada, escala con la pantalla */
+  perspective: 1000px;   /* efecto 3D */
+  cursor: pointer;
+}
+
+/* --- Interior que rota --- */
+.card-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+
+/* Carta boca arriba */
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* --- Caras --- */
+.card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+/* Dorso */
+.card-front {
+  background: #1d4d4f;           /* verde Antisana */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f2f2f2;
+  font-weight: 600;
+}
+
+/* Imagen */
+.card-back {
+  transform: rotateY(180deg);
+}
+.card-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;             /* recorta sin deformar */
+}
+
+/* --- Barra superior reutilizable --- */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.topbar button {
+  border: none;
+  background: none;
+  color: #1d4d4f;
+  font-weight: 500;
+  cursor: pointer;
+}
+.topbar button:hover { color: #0e2a2b; }

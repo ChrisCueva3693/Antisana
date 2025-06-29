@@ -1,0 +1,43 @@
+/* src/pages/Inicio.css */
+
+/* — El contenedor de Swiper ocupa toda la ventana — */
+.hero-swiper,
+.hero-swiper .swiper-slide {
+  width: 100%;
+  height: 100vh;
+}
+
+/* — Centramos la imagen y evitamos “sobreescalados” — */
+.hero-swiper .swiper-slide {
+  display: flex;               /* para centrar el <img> */
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;            /* corta sobrantes */
+}
+
+/* Ajuste clave:
+   1. object-fit: cover  ➜ llena pantalla SIN deformar
+   2. min-width / min-height garantizan cubrir al menos un eje
+   3. max-width / max-height evitan estirar más de lo que trae el bitmap */
+.hero-swiper img {
+  min-width: 100%;             /* cubre a lo ancho…           */
+  min-height: 100%;            /* …o a lo alto, lo que llegue primero */
+  max-width: 2560px;           /* ⬅️  pon aquí tu ancho máximo real   */
+  max-height: 1440px;          /* ⬅️  idem para alto (opcional)      */
+  width: auto;
+  height: auto;
+  object-fit: cover;
+}
+
+/* — Texto opcional sobre la imagen — */
+.caption {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: clamp(1.2rem, 2.5vw, 2.5rem);
+  text-shadow: 0 0 10px rgba(0,0,0,.6);
+  font-weight: 600;
+  pointer-events: none;
+}

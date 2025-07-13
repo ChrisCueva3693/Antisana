@@ -1,43 +1,245 @@
-/* src/pages/Inicio.css */
-
-/* — El contenedor de Swiper ocupa toda la ventana — */
-.hero-swiper,
-.hero-swiper .swiper-slide {
-  width: 100%;
-  height: 100vh;
+/* --- Contenedor Principal --- */
+.inicio-container {
+  background-color: #ffffff;
+  color: #333;
+  font-family: 'Inter', sans-serif;
 }
 
-/* — Centramos la imagen y evitamos “sobreescalados” — */
-.hero-swiper .swiper-slide {
-  display: flex;               /* para centrar el <img> */
+/* --- Sección Hero --- */
+.hero-section {
+  position: relative;
+  height: 70vh;
+  width: 100%;
+  background-color: #eef2f3; /* Un color de fondo claro */
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  /* El recorte circular se aplica aquí, ajustado para dar más espacio */
+  clip-path: circle(50% at 25% 50%);
+}
+
+.hero-shape {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: flex-end; /* Alinea el texto a la derecha */
+}
+
+.hero-text-content {
+  width: 30%; /* Reducimos el ancho para que se aleje del borde del círculo */
+  text-align: right;
+  padding-right: 2%; /* Ajustamos el padding */
+  animation: fadeInRight 1s ease-out;
+}
+
+.hero-title {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 800;
+  color: #1e392a; /* Verde oscuro del header */
+  line-height: 1;
+  margin: 0;
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  color: #555;
+  margin-top: 0.5rem;
+}
+
+
+/* --- Sección de Características --- */
+.features-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f7f9f9;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.feature-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.feature-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #3a5a40; /* Verde medio */
+  margin: 0 0 1rem 0;
+}
+
+.feature-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* --- Sección de Video --- */
+.video-section {
+  padding: 4rem 2rem;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1e392a;
+  margin-bottom: 2rem; 
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding-top: 20%; /* Proporción 16:9 para el video */
+  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+
+/* --- Sección de Tarjetas Circulares --- */
+.info-circles-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f7f9f9;
+  border-top: 1px solid #e0e0e0;
+}
+
+.info-circle {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.info-circle:hover {
+    transform: translateY(-5px);
+}
+
+.info-circle-image-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin-bottom: 1.5rem;
+}
+
+.info-circle-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  transition: transform 0.4s ease;
+}
+
+.info-circle:hover .info-circle-image {
+  transform: scale(1.05);
+}
+
+.info-circle-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background-color: #3a5a40;
+  color: white;
+  border-radius: 50%;
+  display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;            /* corta sobrantes */
+  font-size: 1.5rem;
+  border: 4px solid white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-/* Ajuste clave:
-   1. object-fit: cover  ➜ llena pantalla SIN deformar
-   2. min-width / min-height garantizan cubrir al menos un eje
-   3. max-width / max-height evitan estirar más de lo que trae el bitmap */
-.hero-swiper img {
-  min-width: 100%;             /* cubre a lo ancho…           */
-  min-height: 100%;            /* …o a lo alto, lo que llegue primero */
-  max-width: 2560px;           /* ⬅️  pon aquí tu ancho máximo real   */
-  max-height: 1440px;          /* ⬅️  idem para alto (opcional)      */
-  width: auto;
-  height: auto;
-  object-fit: cover;
+.info-circle-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1e392a;
+  margin: 0 0 0.5rem 0;
 }
 
-/* — Texto opcional sobre la imagen — */
-.caption {
-  position: absolute;
-  bottom: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #fff;
-  font-size: clamp(1.2rem, 2.5vw, 2.5rem);
-  text-shadow: 0 0 10px rgba(0,0,0,.6);
+.info-circle-text {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  max-width: 300px;
+}
+
+/* --- INICIO DE LA SECCIÓN MODIFICADA --- */
+/* Se elimina el estilo de .info-circle-link ya que no se usa */
+
+.info-circle-button {
+  background-color: #c29346; /* Dorado */
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
   font-weight: 600;
-  pointer-events: none;
+  cursor: pointer;
+  text-decoration: none; /* Quita el subrayado del enlace */
+  display: inline-block; /* Asegura que se comporte como un bloque para padding */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.info-circle-button:hover {
+  background-color: #a57c39; /* Dorado oscuro */
+  transform: translateY(-2px);
+}
+/* --- FIN DE LA SECCIÓN MODIFICADA --- */
+
+/* --- Animaciones --- */
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

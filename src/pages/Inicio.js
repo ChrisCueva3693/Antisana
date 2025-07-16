@@ -11,7 +11,6 @@ const FeatureCard = ({ title, children }) => (
   </div>
 );
 
-// --- INICIO DE LA SECCIÓN MODIFICADA ---
 // Componente para las tarjetas circulares de información
 const InfoCircle = ({ image, title, text, icon, link, isExternal }) => {
   
@@ -45,7 +44,6 @@ const InfoCircle = ({ image, title, text, icon, link, isExternal }) => {
     </div>
   );
 };
-// --- FIN DE LA SECCIÓN MODIFICADA ---
 
 export default function Inicio() {
   return (
@@ -111,14 +109,16 @@ export default function Inicio() {
           link="/mapa" // Ruta a tu componente Mapa.js
           isExternal={false}
         />
+        {/* ----- INICIO DEL CAMBIO ----- */}
         <InfoCircle 
           image="/inicio/prophet.png"
           title="Nuestro Modelo Predictivo"
           text="Aprende cómo funciona nuestro modelo y la tecnología que utilizamos para analizar el clima."
           icon={<FaMountain />}
-          link="https://www.youtube.com/watch?v=mTrPpd-sMvY"
-          isExternal={true}
+          link="/modelos" // Cambiado para apuntar a la página de Modelos
+          isExternal={false}  // Cambiado a 'false' para usar el Link de React Router
         />
+        {/* ----- FIN DEL CAMBIO ----- */}
       </section>
     </div>
   );

@@ -70,6 +70,18 @@ export default function Header() {
                 <span className="nav-text">Juegos</span>
               </NavLink>
             </li>
+            {/* --- INICIO DE LA MODIFICACIÓN --- */}
+            <li className="nav-item">
+              <NavLink 
+                to="/modelos" 
+                className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}
+                onClick={handleLinkClick}
+              >
+                <span className="nav-icon">💻</span>
+                <span className="nav-text">Modelos</span>
+              </NavLink>
+            </li>
+            {/* --- FIN DE LA MODIFICACIÓN --- */}
             <li className="nav-item">
               <NavLink 
                 to="/mapa" 
@@ -128,6 +140,18 @@ export default function Header() {
                 <span className="nav-mobile-text">Juegos</span>
               </NavLink>
             </li>
+            {/* --- INICIO DE LA MODIFICACIÓN --- */}
+            <li className="nav-mobile-item">
+              <NavLink 
+                to="/modelos" 
+                className={({ isActive }) => `nav-mobile-link ${isActive ? 'nav-mobile-link-active' : ''}`}
+                onClick={handleLinkClick}
+              >
+                <span className="nav-mobile-icon">💻</span>
+                <span className="nav-mobile-text">Modelos</span>
+              </NavLink>
+            </li>
+            {/* --- FIN DE LA MODIFICACIÓN --- */}
             <li className="nav-mobile-item">
               <NavLink 
                 to="/mapa" 

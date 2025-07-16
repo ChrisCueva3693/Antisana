@@ -7,8 +7,8 @@
 /* --- SECCIÓN HERO (TÍTULO PRINCIPAL) --- */
 .hero-section {
   position: relative;
-  text-align: center;
-  padding: 5rem 1rem;
+  text-align: center; /* <<<<<<< CORRECCIÓN: Centrar el texto */
+  padding: 5rem 40rem;
   color: white;
   overflow: hidden;
 }
@@ -158,24 +158,13 @@
   transition: transform 0.4s ease, box-shadow 0.4s ease;
   opacity: 0;
   animation: fadeInUp 0.6s ease-out forwards;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
 }
 
 .station-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-}
-
-.card-background {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 1rem;
-  transition: background 0.4s ease;
-}
-
-.station-card:hover .card-background {
-  background: linear-gradient(145deg, #ffffff, #f9fafb);
 }
 
 .card-content {
@@ -186,7 +175,7 @@
 .station-header {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem; /* Aumentado para dar espacio a los grupos */
 }
 
 .station-icon-container {
@@ -237,6 +226,23 @@
   margin: 0;
 }
 
+/* --- NUEVO: Estilos para los grupos de predicción --- */
+.prediction-group {
+    background-color: #f8fafc;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: 1px solid #e2e8f0;
+}
+
+.prediction-group-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 0.75rem 0;
+    text-align: center;
+}
+
 .station-actions {
   display: flex;
   gap: 0.5rem;
@@ -246,7 +252,8 @@
 .action-button {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  justify-content: center; /* Centra el contenido del botón */
+  gap: 0.5rem; /* Espacio entre icono y texto */
   padding: 0.5rem 0.75rem;
   border: none;
   border-radius: 0.5rem;
@@ -254,12 +261,12 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  flex: 1; /* Hace que los botones ocupen el mismo espacio */
 }
 
 .prediction-btn {
   background-color: #c29346;
   color: white;
-  flex: 1;
 }
 
 .prediction-btn:hover {
@@ -279,14 +286,6 @@
   box-shadow: 0 4px 12px rgba(58, 90, 64, 0.3);
 }
 
-.download-btn.excel {
-  background-color: #588157;
-}
-
-.download-btn.excel:hover {
-  background-color: #476b46;
-}
-
 .btn-icon {
   font-size: 1rem;
 }
@@ -294,21 +293,6 @@
 .btn-text {
   font-size: 0.875rem;
 }
-
-/* Partículas animadas en la tarjeta */
-.card-particles .particle {
-  position: absolute;
-  font-size: 1.25rem;
-  opacity: 0;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-.station-card:hover .particle { opacity: 0.4; }
-.particle-1 { top: 10%; right: 10%; transform: translateY(20px); }
-.station-card:hover .particle-1 { transform: translateY(0); transition-delay: 0.1s; }
-.particle-2 { bottom: 20%; left: 10%; transform: translateY(20px); }
-.station-card:hover .particle-2 { transform: translateY(0); transition-delay: 0.2s; }
-.particle-3 { bottom: 40%; right: 5%; transform: translateY(20px); }
-.station-card:hover .particle-3 { transform: translateY(0); transition-delay: 0.3s; }
 
 /* --- ÁREA DEL MAPA --- */
 .map-area {
@@ -614,7 +598,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 3000; /* Z-index muy alto para estar por encima de todo */
+  z-index: 3000;
   padding: 2rem;
   animation: fadeIn 0.3s ease;
 }
@@ -649,7 +633,7 @@
   .prediction-btn { flex: none; }
 }
 
-/* --- INICIO DE NUEVOS ESTILOS PARA LAS RECOMENDACIONES --- */
+/* --- ESTILOS PARA LAS RECOMENDACIONES --- */
 .recommendations-container {
     text-align: left;
     margin-top: 1.5rem;
@@ -684,4 +668,3 @@
 .recommendations-list li {
     margin-bottom: 0.5rem;
 }
-/* --- FIN DE NUEVOS ESTILOS --- */

@@ -25,15 +25,19 @@ const ImageLightbox = ({ src, alt, onClose }) => {
 
 
 // --- Componente para el Modal de Predicciones Mejorado ---
-const PredictionModal = ({ station, onClose }) => {
+const PredictionModal = ({ predictionInfo, onClose }) => {
   const [isExiting, setIsExiting] = useState(false);
   const [isImageZoomed, setIsImageZoomed] = useState(false);
+  const modalBodyRef = useRef(null);
 
   useEffect(() => {
-    if (station) {
+    if (predictionInfo) {
       setIsExiting(false);
+      if (modalBodyRef.current) {
+        modalBodyRef.current.scrollTop = 0;
+      }
     }
-  }, [station]);
+  }, [predictionInfo]);
 
   const handleClose = useCallback(() => {
     setIsExiting(true);
@@ -43,13 +47,17 @@ const PredictionModal = ({ station, onClose }) => {
   }, [onClose]);
 
   useEffect(() => {
-    if (station) {
+    if (predictionInfo) {
       document.body.style.overflow = 'hidden';
       return () => { document.body.style.overflow = 'unset'; };
     }
-  }, [station]);
+  }, [predictionInfo]);
 
-  if (!station) return null;
+  if (!predictionInfo) return null;
+
+  const { station, type } = predictionInfo;
+  const graphImage = station.predictions[type].graphImage;
+  const recommendations = station.predictions[type].recommendations;
 
   return (
     <>
@@ -80,16 +88,16 @@ const PredictionModal = ({ station, onClose }) => {
             </button>
           </div>
 
-          <div className="modal-body">
+          <div className="modal-body" ref={modalBodyRef}>
             <div className="modal-header">
-              <h3 className="modal-title">Análisis Predictivo</h3>
+              <h3 className="modal-title">Análisis Predictivo de {type}</h3>
               <div className="modal-decoration"></div>
             </div>
 
             <div className="prediction-placeholder">
               <div className="prediction-chart-image-container" onClick={() => setIsImageZoomed(true)}>
                  <img 
-                    src={station.graphImage} 
+                    src={graphImage} 
                     alt={`Gráfico de predicción para ${station.name}`} 
                     className="prediction-chart-image"
                  />
@@ -99,36 +107,7 @@ const PredictionModal = ({ station, onClose }) => {
               </div>
               
               <div className="recommendations-container">
-                  <p>
-                      Este gráfico muestra la predicción de precipitación, resaltando posibles sequías y lluvias intensas.
-                  </p>
-                  
-                  <h4 className="recommendations-title">Análisis de Predicción de Precipitaciones 2025</h4>
-                  <p>Recomendaciones para la ciudadanía:</p>
-                  
-                  <div className="recommendations-section">
-                      <h5>Durante sequías:</h5>
-                      <ul className="recommendations-list">
-                          <li>Hacer uso responsable del agua en el hogar y lugares de trabajo.</li>
-                          <li>Evitar el riego excesivo de jardines o el lavado de vehículos.</li>
-                          <li>Mantenerse informado sobre posibles restricciones o cortes programados de agua.</li>
-                          <li>Apoyar medidas de conservación hídrica impulsadas por autoridades locales.</li>
-                      </ul>
-                  </div>
-
-                  <div className="recommendations-section">
-                      <h5>Durante lluvias intensas:</h5>
-                      <ul className="recommendations-list">
-                          <li>Revisar y limpiar canales, alcantarillas y techos para evitar acumulaciones de agua.</li>
-                          <li>Evitar transitar por zonas propensas a deslizamientos o inundaciones.</li>
-                          <li>Tener a mano un kit de emergencia en caso de evacuación.</li>
-                          <li>Seguir las recomendaciones emitidas por el sistema de gestión de riesgos y emergencias.</li>
-                      </ul>
-                  </div>
-
-                  <p>
-                      El monitoreo constante de estos eventos permitirá una mejor preparación y respuesta ante fenómenos climáticos extremos, minimizando riesgos para la población y la infraestructura.
-                  </p>
+                  {recommendations}
               </div>
 
             </div>
@@ -173,7 +152,7 @@ const PredictionModal = ({ station, onClose }) => {
           </div>
         </div>
       </div>
-      {isImageZoomed && <ImageLightbox src={station.graphImage} alt={`Gráfico de ${station.name}`} onClose={() => setIsImageZoomed(false)} />}
+      {isImageZoomed && <ImageLightbox src={graphImage} alt={`Gráfico de ${station.name}`} onClose={() => setIsImageZoomed(false)} />}
     </>
   );
 };
@@ -254,26 +233,46 @@ const StationCard = ({ station, onDownload, onViewPrediction, delay }) => {
             <p className="station-code">Código: {station.id}</p>
           </div>
         </div>
-
-        {/* --- INICIO DE LA SECCIÓN MODIFICADA --- */}
-        <div className="station-actions">
-          <button 
-            className="action-button prediction-btn"
-            onClick={() => onViewPrediction(station)}
-          >
-            <span className="btn-icon">🔮</span>
-            <span className="btn-text">Predicción</span>
-          </button>
-          <button 
-            className="action-button download-btn csv"
-            onClick={() => onDownload(station)}
-          >
-            <span className="btn-icon">📊</span>
-            <span className="btn-text">CSV</span>
-          </button>
-          {/* El botón de Excel ha sido eliminado */}
+        
+        <div className="prediction-group">
+            <h4 className="prediction-group-title">Precipitación</h4>
+            <div className="station-actions">
+                <button 
+                    className="action-button prediction-btn"
+                    onClick={() => onViewPrediction(station, 'Precipitación')}
+                >
+                    <span className="btn-icon">🔮</span>
+                    <span className="btn-text">Predicción</span>
+                </button>
+                <button 
+                    className="action-button download-btn csv"
+                    onClick={() => onDownload(station, 'Precipitación')}
+                >
+                    <span className="btn-icon">📊</span>
+                    <span className="btn-text">CSV</span>
+                </button>
+            </div>
         </div>
-        {/* --- FIN DE LA SECCIÓN MODIFICADA --- */}
+
+        <div className="prediction-group">
+            <h4 className="prediction-group-title">Nivel de Caudal</h4>
+            <div className="station-actions">
+                <button 
+                    className="action-button prediction-btn"
+                    onClick={() => onViewPrediction(station, 'Caudal')}
+                >
+                    <span className="btn-icon">🌊</span>
+                    <span className="btn-text">Predicción</span>
+                </button>
+                <button 
+                    className="action-button download-btn csv"
+                    onClick={() => onDownload(station, 'Caudal')}
+                >
+                    <span className="btn-icon">📊</span>
+                    <span className="btn-text">CSV</span>
+                </button>
+            </div>
+        </div>
       </div>
 
       <div className="card-particles">
@@ -306,7 +305,7 @@ const Legend = () => (
 
 // --- Componente Principal del Mapa ---
 export default function Mapa() {
-  const [selectedStation, setSelectedStation] = useState(null);
+  const [predictionInfo, setPredictionInfo] = useState(null);
 
   const createIcon = (color) => new L.DivIcon({
     html: `<div class="custom-marker-icon" style="background-color: ${color};">
@@ -328,37 +327,79 @@ export default function Mapa() {
       type: 'Pluviométrica', 
       name: 'Antisana Limboasi', 
       position: [-0.59348, -78.20825],
-      graphImage: '/Solo_Prediccion_Resaltada_P43.png',
-      csvFile: '/Prediccion_Prophet_Diaria_Etiquetada_43.csv' // Ruta al archivo CSV
+      predictions: {
+        'Precipitación': {
+          graphImage: '/Solo_Prediccion_Resaltada_P43.png',
+          csvFile: '/Prediccion_Prophet_Diaria_Etiquetada_43.csv',
+          recommendations: (
+            <>
+              <h4 className="recommendations-title">Análisis Detallado de la Predicción de Lluvias – Estación Limboasi 📊</h4>
+              <p>La estación Limboasi presenta un pronóstico de alta precipitación, con un promedio de 3.5 mm, lo que la define como una zona considerablemente húmeda. Su patrón climático está dominado por una temporada de lluvias extremadamente intensa a mediados de año. A continuación, el análisis detallado del pronóstico.</p>
+              <div className="recommendations-section"><h5>Desglose por Períodos Climáticos 🗓️</h5><p>El ciclo anual en Limboasi está marcado por contrastes muy fuertes entre la temporada seca y la lluviosa:</p><ul className="recommendations-list"><li><strong>Inicio de Año: Temporada Seca (Enero - Mediados de Marzo) ☀️:</strong> El año arranca con el período más seco. Las lluvias se mantendrán en niveles relativamente bajos, principalmente entre 1.5 y 2.5 mm. La presencia de "Días Secos" (puntos amarillos) 🟡 es notable.</li><li><strong>Incremento Sostenido (Finales de Marzo - Abril) 📈:</strong> Esta es una fase de transición clara y ascendente. Las precipitaciones aumentarán de forma constante, preparando el terreno para la temporada principal de lluvias.</li><li><strong>Temporada de Lluvias Torrenciales (Mayo - Julio) ⛈️:</strong> Este trimestre es el evento climático central del año. Se esperan lluvias muy intensas y persistentes, superando consistentemente los 4.0 mm y alcanzando picos por encima de los 6.0 mm.</li><li><strong>Caída Abrupta (Agosto) 📉:</strong> El final de la temporada de lluvias es repentino. Agosto registrará un descenso muy rápido en las precipitaciones.</li><li><strong>Período Húmedo e Irregular (Septiembre - Noviembre) 🌦️:</strong> Limboasi no entra en una sequía pronunciada, sino que experimenta un período de lluvias intermitentes y moderadas.</li><li><strong>Cierre de Año Variable (Diciembre) ✨:</strong> El año finaliza manteniendo este patrón irregular, con una mezcla de días secos y lluviosos.</li></ul></div>
+              <div className="recommendations-section"><h5>Recomendaciones Estratégicas 💡</h5><ul className="recommendations-list"><li><strong>Gestión de Riesgos y Excedentes de Agua ⚠️:</strong> La principal preocupación es la gestión del exceso de agua entre mayo y julio. La infraestructura debe estar preparada para soportar caudales y niveles de saturación del suelo muy altos.</li><li><strong>Planificación Agrícola y Civil 🚜:</strong> La temporada de lluvias torrenciales puede ser destructiva para ciertos cultivos. La ventana ideal para estas actividades es el inicio seco del año (enero-marzo).</li><li><strong>Recursos Hídricos 💧:</strong> Gracias a su intensa temporada de lluvias, esta zona probablemente no sufrirá de escasez de agua. El reto es su manejo y control durante los picos extremos.</li></ul></div>
+            </>
+          )
+        },
+        'Caudal': {
+          graphImage: '/H44-Antisana_Limboasi-PREDICCION_365DIAS.png',
+          csvFile: '/H44-Antisana_Limboasi-PREDICCION_365DIAS.csv',
+          recommendations: (
+            <>
+              <h4 className="recommendations-title">Análisis Detallado de la Predicción de Caudal 📊</h4>
+              <p>Esta predicción de caudal para los próximos 365 días muestra un ciclo hidrológico muy bien definido, con un caudal promedio de 2.08 m³/s. El comportamiento del río está marcado por dos temporadas de aguas bajas (estiaje) y una temporada de aguas altas muy pronunciada a mediados de año.</p>
+              <div className="recommendations-section"><h5>Desglose por Períodos Clave del Caudal 🗓️</h5><p>El comportamiento del río se puede segmentar en las siguientes fases:</p><ul className="recommendations-list"><li><strong>Inicio de Año: Temporada de Estiaje (Enero - Marzo) 🏜️:</strong> El año comienza con un período de aguas bajas muy marcado. El caudal desciende progresivamente, alcanzando su punto más bajo del año en marzo.</li><li><strong>Transición y Crecida (Abril - Mayo) 📈:</strong> A partir de abril, el río inicia una franca recuperación. El caudal aumenta de manera constante y rápida, saliendo del estiaje.</li><li><strong>Temporada de Aguas Altas (Junio - Agosto) 🌊:</strong> Este trimestre es el evento hidrológico más importante del año. El caudal se mantiene en niveles elevados y presenta dos picos muy definidos y pronunciados.</li><li><strong>Descenso del Caudal (Septiembre) 📉:</strong> Tras el segundo pico de julio, el caudal comienza un descenso rápido y sostenido durante todo septiembre.</li><li><strong>Segundo Período de Estiaje (Octubre - Diciembre) ☀️:</strong> El último trimestre del año se caracteriza por un segundo período de aguas bajas, aunque ligeramente más variable que el de inicio de año.</li></ul></div>
+              <div className="recommendations-section"><h5>Recomendaciones Estratégicas para la Gestión del Caudal 💡</h5><p>Basado en este pronóstico, se pueden emitir las siguientes recomendaciones clave:</p><ul className="recommendations-list"><li><strong>Gestión de Recursos Hídricos y Agua Potable 💧:</strong> Maximizar la captación y el almacenamiento de agua en embalses durante el pico de junio y julio. Las reservas acumuladas serán cruciales para garantizar el suministro durante los 6 meses de aguas bajas.</li><li><strong>Planificación Agrícola y Riego 🚜:</strong> Planificar los cultivos de mayor demanda hídrica para que su fase de máximo requerimiento coincida con la temporada de aguas altas (junio - agosto).</li><li><strong>Gestión de Presas y Generación Hidroeléctrica ⚡:</strong> Preparar las turbinas para operar a máxima capacidad durante junio y julio para aprovechar los dos picos de caudal.</li><li><strong>Prevención de Riesgos y Obras Civiles ⚠️:</strong> Realizar inspecciones y mantenimiento de riberas y puentes antes de mayo. Evitar trabajos en las llanuras de inundación del río durante junio y julio.</li></ul></div>
+            </>
+          )
+        }
+      }
     },
     { 
       id: 'P42', 
       type: 'Pluviométrica', 
       name: 'Antisana Ramón Huañuna', 
       position: [-0.60228, -78.19867],
-      graphImage: '/Solo_Prediccion_Resaltada_P42.png',
-      csvFile: '/Prediccion_Prophet_Diaria_Etiquetada_42.csv' // Ruta al archivo CSV
+      predictions: {
+        'Precipitación': {
+          graphImage: '/Solo_Prediccion_Resaltada_P42.png',
+          csvFile: '/Prediccion_Prophet_Diaria_Etiquetada_42.csv',
+          recommendations: (
+            <>
+              <h4 className="recommendations-title">Análisis Detallado de la Predicción de Lluvias – Estación Ramón Huañuna 📊</h4>
+              <p>La predicción de precipitaciones para la estación Ramón Huañuna muestra un patrón climático muy particular y definido para los próximos 365 días. Con una lluvia promedio de 1.9 mm, esta zona es notablemente más seca en comparación con otras, lo que exige una planificación aún más cuidadosa. A continuación, se desglosa el pronóstico mes a mes. 💧</p>
+              <div className="recommendations-section"><h5>Desglose por Períodos Climáticos 🗓️</h5><p>El año se puede dividir en fases muy claras, cada una con características e implicaciones distintas:</p><ul className="recommendations-list"><li><strong>Inicio de Año Seco (Enero - Mediados de Marzo) ☀️:</strong> El año comienza con una temporada marcadamente seca. Las precipitaciones se mantendrán en niveles bajos, oscilando entre 1.0 y 1.5 mm.</li><li><strong>Transición y Primer Pulso de Lluvias (Finales de Marzo - Mayo) 🌦️:</strong> A partir de finales de marzo, el patrón cambia. Se observa un incremento gradual pero significativo de las lluvias, marcando el final de la primera temporada seca.</li><li><strong>Temporada de Lluvias Intensas (Junio - Julio) ⛈️:</strong> Estos dos meses representan el corazón de la temporada lluviosa. Se esperan los picos más altos de precipitación del año, superando consistentemente los 3.0 mm.</li><li><strong>Descenso Brusco (Agosto) 📉:</strong> Inmediatamente después del pico de julio, agosto actuará como un mes de transición con un descenso rápido y pronunciado en los niveles de lluvia.</li><li><strong>Período de Sequía Pronunciada (Septiembre - Noviembre) 🏜️:</strong> Este trimestre se perfila como el más seco y crítico del año. Las precipitaciones caerán a sus niveles más bajos.</li><li><strong>Cierre de Año (Diciembre) ✨:</strong> El año concluye con una ligera recuperación en las lluvias, rompiendo la tendencia de sequía de los meses anteriores.</li></ul></div>
+              <div className="recommendations-section"><h5>Recomendaciones Estratégicas 💡</h5><ul className="recommendations-list"><li><strong>Gestión del Agua 댐:</strong> Es vital maximizar la captación y almacenamiento de agua durante el pico de lluvias de junio y julio. Estos dos meses son la única ventana significativa para acumular reservas.</li><li><strong>Planificación Agrícola 🌽:</strong> Los ciclos de siembra deben estar sincronizados con la temporada de lluvias de mediados de año. Para el resto del año, será indispensable contar con sistemas de riego eficientes.</li><li><strong>Prevención de Riesgos ⚠️:</strong> Aunque la zona es seca, la concentración de lluvias en junio y julio puede aumentar el riesgo de erosión. La sequía de septiembre-noviembre eleva el riesgo de sequía agrícola y podría crear condiciones favorables para incendios forestales.</li></ul></div>
+            </>
+          )
+        },
+        'Caudal': {
+          graphImage: '/H15-Ramon_Huañuna_Caudal-PREDICCION_365DIAS.png',
+          csvFile: '/H15-Ramon_Huañuna_Caudal-PREDICCION_365DIAS.csv',
+          recommendations: (
+            <>
+              <h4 className="recommendations-title">Análisis Detallado de la Predicción de Caudal 📊</h4>
+              <p>Este pronóstico muestra el comportamiento de un río con un caudal promedio bajo, de solo 1.31 m³/s. El ciclo anual es muy dinámico y se caracteriza por un pico de caudal muy temprano en el año, seguido de un período de estiaje (aguas bajas) muy severo, lo que requiere una gestión sumamente cuidadosa.</p>
+              <div className="recommendations-section"><h5>Desglose por Períodos Clave del Caudal 🗓️</h5><p>El comportamiento del río para los próximos 365 días se puede dividir en las siguientes fases críticas:</p><ul className="recommendations-list"><li><strong>Pico Temprano y Caída Brusca (Enero - Febrero) 🎢:</strong> A diferencia de otros patrones, el año comienza con un pico de caudal alto, breve pero intenso, que alcanza su máximo en febrero. Inmediatamente después, el caudal se desploma.</li><li><strong>Temporada de Estiaje Crítico (Marzo - Abril) 🏜️:</strong> Este bimestre se perfila como el período más desafiante y de mayor riesgo del año. El caudal caerá a sus niveles más bajos, llegando a apenas 1.05 m³/s.</li><li><strong>Recuperación y Aguas Altas (Mayo - Agosto) 🌊:</strong> A partir de mayo, el río inicia su recuperación. La temporada principal de aguas altas se extiende de junio a agosto, con múltiples picos que alcanzan nuevamente la marca de 1.5 m³/s.</li><li><strong>Segundo Período de Estiaje (Septiembre - Noviembre) ☀️:</strong> Tras el máximo de verano, el río entra en una segunda temporada de aguas bajas, aunque menos severa que la de marzo-abril.</li><li><strong>Cierre de Año en Aguas Bajas (Diciembre - Enero 2026) 📉:</strong> El año termina con el río en este segundo período de estiaje, con una tendencia a mantener o disminuir sus niveles.</li></ul></div>
+              <div className="recommendations-section"><h5>Recomendaciones Estratégicas para la Gestión del Caudal 💡</h5><p>El patrón único de este río exige una estrategia de gestión muy específica:</p><ul className="recommendations-list"><li><strong>Gestión de Recursos Hídricos y Agua Potable 💧:</strong> La prioridad es gestionar las reservas para sobrevivir al estiaje crítico de marzo y abril. La temporada de mayo a agosto debe usarse para rellenar los embalses al máximo.</li><li><strong>Planificación Agrícola y Riego 🚜:</strong> Evitar cualquier siembra de alta demanda hídrica antes de mayo. Los ciclos de cultivo deben comenzar con la recuperación del caudal en mayo.</li><li><strong>Protección de Ecosistemas Acuáticos 🐠:</strong> Implementar un plan de caudal ecológico durante marzo y abril para asegurar que un mínimo vital de agua se mantenga fluyendo en el río.</li><li><strong>Gestión de Presas y Generación Hidroeléctrica ⚡:</strong> Operar en modo de conservación extrema desde finales de febrero hasta abril. La generación de energía se concentrará en el período de junio a agosto.</li></ul></div>
+            </>
+          )
+        }
+      }
     },
   ];
   
-  // --- INICIO DE LA NUEVA FUNCIÓN DE DESCARGA ---
-  const handleDownload = (station) => {
-    // Creamos un enlace temporal en el documento
+  const handleDownload = (station, type) => {
+    const csvFile = station.predictions[type].csvFile;
     const link = document.createElement('a');
-    link.href = station.csvFile; // Usamos la ruta del archivo CSV de la estación
-    
-    // Asignamos el nombre con el que se descargará el archivo
-    link.setAttribute('download', `${station.id}_prediccion.csv`);
-    
-    // Añadimos el enlace al DOM, hacemos clic en él y lo removemos
+    link.href = csvFile;
+    link.setAttribute('download', `${station.id}_${type.toLowerCase()}_prediccion.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
-  // --- FIN DE LA NUEVA FUNCIÓN DE DESCARGA ---
 
-  const handleViewPrediction = (station) => {
-    setSelectedStation(station);
+  const handleViewPrediction = (station, type) => {
+    setPredictionInfo({ station, type });
   };
 
   return (
@@ -374,7 +415,6 @@ export default function Mapa() {
       <div className="stats-section">
         <AnimatedStat number={2} label="Estaciones activas" suffix="" delay={0} />
         <AnimatedStat number={24} label="Horas de monitoreo" suffix="/7" delay={200} />
-        <AnimatedStat number={95} label="Precisión en predicciones" suffix="%" delay={400} />
       </div>
 
       <div className="map-content-layout">
@@ -413,21 +453,12 @@ export default function Mapa() {
                 key={station.id}
                 position={station.position}
                 icon={pluviometricaIcon}
-                eventHandlers={{
-                  click: () => setSelectedStation(station),
-                }}
               >
                 <Popup>
                   <div className="popup-content">
                     <strong>{station.name}</strong>
                     <p>Tipo: {station.type}</p>
                     <p>Código: {station.id}</p>
-                    <button 
-                      className="popup-button"
-                      onClick={() => setSelectedStation(station)}
-                    >
-                      Ver Predicción
-                    </button>
                   </div>
                 </Popup>
               </Marker>
@@ -438,8 +469,8 @@ export default function Mapa() {
       </div>
 
       <PredictionModal 
-        station={selectedStation} 
-        onClose={() => setSelectedStation(null)} 
+        predictionInfo={predictionInfo} 
+        onClose={() => setPredictionInfo(null)} 
       />
     </div>
   );

@@ -8,9 +8,9 @@
 /* --- Sección Hero --- */
 .hero-section {
   position: relative;
-  height: 70vh;
+  height: 80vh; /* Aumentamos la altura */
   width: 100%;
-  background-color: #eef2f3; /* Un color de fondo claro */
+  background-color: #eef2f3;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -24,8 +24,9 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  /* El recorte circular se aplica aquí, ajustado para dar más espacio */
-  clip-path: circle(50% at 25% 50%);
+  /* Clip-path mejorado - más generoso y mejor posicionado */
+  clip-path: circle(60% at 30% 50%);
+  z-index: 1;
 }
 
 .hero-shape {
@@ -33,32 +34,44 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 1rem;
   display: flex;
-  justify-content: flex-end; /* Alinea el texto a la derecha */
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  z-index: 2;
 }
 
 .hero-text-content {
-  width: 30%; /* Reducimos el ancho para que se aleje del borde del círculo */
-  text-align: right;
-  padding-right: 2%; /* Ajustamos el padding */
+  width: clamp(280px, 40vw, 500px);
+  max-width: 90%;
+  text-align: left;
+  margin-right: -40%; /* Reducido de 5% a 2% para moverlo más a la derecha */
   animation: fadeInRight 1s ease-out;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: clamp(1rem, 3vw, 2.5rem);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  min-height: fit-content;
 }
 
 .hero-title {
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(1.8rem, 4vw, 3.5rem); /* Tamaño más controlado */
   font-weight: 800;
-  color: #1e392a; /* Verde oscuro del header */
-  line-height: 1;
-  margin: 0;
+  color: #1e392a;
+  line-height: 1.1;
+  margin: 0 0 0.5rem 0;
+  word-wrap: break-word; /* Rompe palabras largas si es necesario */
 }
 
 .hero-subtitle {
-  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem); /* Tamaño más proporcional */
   color: #555;
   margin-top: 0.5rem;
+  line-height: 1.4;
+  word-wrap: break-word;
 }
-
 
 /* --- Sección de Características --- */
 .features-section {
@@ -89,7 +102,7 @@
 .feature-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #3a5a40; /* Verde medio */
+  color: #3a5a40;
   margin: 0 0 1rem 0;
 }
 
@@ -118,7 +131,7 @@
   width: 100%;
   max-width: 720px;
   margin: 0 auto;
-  padding-top: 20%; /* Proporción 16:9 para el video */
+  padding-top: 20%;
   box-shadow: 0 15px 40px rgba(0,0,0,0.12);
   border-radius: 16px;
   overflow: hidden;
@@ -132,7 +145,6 @@
   height: 100%;
   border: 0;
 }
-
 
 /* --- Sección de Tarjetas Circulares --- */
 .info-circles-section {
@@ -210,27 +222,23 @@
   max-width: 300px;
 }
 
-/* --- INICIO DE LA SECCIÓN MODIFICADA --- */
-/* Se elimina el estilo de .info-circle-link ya que no se usa */
-
 .info-circle-button {
-  background-color: #c29346; /* Dorado */
+  background-color: #c29346;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 50px;
   font-weight: 600;
   cursor: pointer;
-  text-decoration: none; /* Quita el subrayado del enlace */
-  display: inline-block; /* Asegura que se comporte como un bloque para padding */
+  text-decoration: none;
+  display: inline-block;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .info-circle-button:hover {
-  background-color: #a57c39; /* Dorado oscuro */
+  background-color: #a57c39;
   transform: translateY(-2px);
 }
-/* --- FIN DE LA SECCIÓN MODIFICADA --- */
 
 /* --- Animaciones --- */
 @keyframes fadeInRight {
@@ -241,5 +249,65 @@
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 1024px) {
+  .hero-text-content {
+    width: clamp(300px, 50vw, 600px);
+    margin-right: 3%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    height: 60vh;
+  }
+  
+  .hero-background-image {
+    clip-path: circle(70% at 50% 30%);
+  }
+  
+  .hero-shape {
+    justify-content: center;
+    padding: 1rem;
+  }
+  
+  .hero-text-content {
+    width: clamp(280px, 85vw, 500px);
+    margin-right: 0;
+    text-align: center;
+  }
+  
+  .hero-title {
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    height: 50vh;
+  }
+  
+  .hero-background-image {
+    clip-path: circle(80% at 50% 25%);
+  }
+  
+  .hero-text-content {
+    width: clamp(250px, 90vw, 400px);
+    padding: clamp(0.8rem, 2vw, 1.5rem);
+  }
+  
+  .hero-title {
+    font-size: clamp(1.3rem, 7vw, 2rem);
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(0.8rem, 3.5vw, 1rem);
   }
 }

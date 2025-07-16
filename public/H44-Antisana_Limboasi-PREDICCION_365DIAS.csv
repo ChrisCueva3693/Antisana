@@ -1,0 +1,366 @@
+fecha,valor_predicho,clasificacion
+2025-01-01,1.883,Caudal Bajo
+2025-01-02,1.890,Caudal Bajo
+2025-01-03,1.872,Caudal Bajo
+2025-01-04,1.868,Caudal Bajo
+2025-01-05,1.861,Caudal Bajo
+2025-01-06,1.867,Caudal Bajo
+2025-01-07,1.885,Caudal Bajo
+2025-01-08,1.876,Caudal Bajo
+2025-01-09,1.868,Caudal Bajo
+2025-01-10,1.841,Caudal Bajo
+2025-01-11,1.834,Caudal Bajo
+2025-01-12,1.832,Caudal Bajo
+2025-01-13,1.850,Caudal Bajo
+2025-01-14,1.884,Caudal Bajo
+2025-01-15,1.895,Normal
+2025-01-16,1.909,Normal
+2025-01-17,1.901,Normal
+2025-01-18,1.909,Normal
+2025-01-19,1.915,Normal
+2025-01-20,1.931,Normal
+2025-01-21,1.956,Normal
+2025-01-22,1.947,Normal
+2025-01-23,1.933,Normal
+2025-01-24,1.892,Normal
+2025-01-25,1.863,Caudal Bajo
+2025-01-26,1.833,Caudal Bajo
+2025-01-27,1.817,Caudal Bajo
+2025-01-28,1.816,Caudal Bajo
+2025-01-29,1.791,Caudal Bajo
+2025-01-30,1.771,Caudal Bajo
+2025-01-31,1.735,Caudal Bajo
+2025-02-01,1.723,Caudal Bajo
+2025-02-02,1.718,Caudal Bajo
+2025-02-03,1.733,Caudal Bajo
+2025-02-04,1.767,Caudal Bajo
+2025-02-05,1.778,Caudal Bajo
+2025-02-06,1.790,Caudal Bajo
+2025-02-07,1.780,Caudal Bajo
+2025-02-08,1.787,Caudal Bajo
+2025-02-09,1.792,Caudal Bajo
+2025-02-10,1.809,Caudal Bajo
+2025-02-11,1.837,Caudal Bajo
+2025-02-12,1.836,Caudal Bajo
+2025-02-13,1.833,Caudal Bajo
+2025-02-14,1.808,Caudal Bajo
+2025-02-15,1.801,Caudal Bajo
+2025-02-16,1.797,Caudal Bajo
+2025-02-17,1.810,Caudal Bajo
+2025-02-18,1.839,Caudal Bajo
+2025-02-19,1.845,Caudal Bajo
+2025-02-20,1.853,Caudal Bajo
+2025-02-21,1.842,Caudal Bajo
+2025-02-22,1.847,Caudal Bajo
+2025-02-23,1.852,Caudal Bajo
+2025-02-24,1.868,Caudal Bajo
+2025-02-25,1.893,Normal
+2025-02-26,1.886,Caudal Bajo
+2025-02-27,1.872,Caudal Bajo
+2025-02-28,1.832,Caudal Bajo
+2025-03-01,1.803,Caudal Bajo
+2025-03-02,1.772,Caudal Bajo
+2025-03-03,1.755,Caudal Bajo
+2025-03-04,1.752,Caudal Bajo
+2025-03-05,1.726,Caudal Bajo
+2025-03-06,1.707,Caudal Bajo
+2025-03-07,1.675,Caudal Bajo
+2025-03-08,1.669,Caudal Bajo
+2025-03-09,1.675,Caudal Bajo
+2025-03-10,1.706,Caudal Bajo
+2025-03-11,1.760,Caudal Bajo
+2025-03-12,1.794,Caudal Bajo
+2025-03-13,1.833,Caudal Bajo
+2025-03-14,1.853,Caudal Bajo
+2025-03-15,1.889,Caudal Bajo
+2025-03-16,1.922,Normal
+2025-03-17,1.964,Normal
+2025-03-18,2.012,Normal
+2025-03-19,2.024,Normal
+2025-03-20,2.028,Normal
+2025-03-21,2.003,Normal
+2025-03-22,1.989,Normal
+2025-03-23,1.971,Normal
+2025-03-24,1.967,Normal
+2025-03-25,1.977,Normal
+2025-03-26,1.963,Normal
+2025-03-27,1.954,Normal
+2025-03-28,1.929,Normal
+2025-03-29,1.927,Normal
+2025-03-30,1.932,Normal
+2025-03-31,1.956,Normal
+2025-04-01,1.996,Normal
+2025-04-02,2.011,Normal
+2025-04-03,2.024,Normal
+2025-04-04,2.014,Normal
+2025-04-05,2.017,Normal
+2025-04-06,2.015,Normal
+2025-04-07,2.024,Normal
+2025-04-08,2.041,Normal
+2025-04-09,2.029,Normal
+2025-04-10,2.015,Normal
+2025-04-11,1.980,Normal
+2025-04-12,1.964,Normal
+2025-04-13,1.954,Normal
+2025-04-14,1.965,Normal
+2025-04-15,1.997,Normal
+2025-04-16,2.009,Normal
+2025-04-17,2.028,Normal
+2025-04-18,2.032,Normal
+2025-04-19,2.057,Normal
+2025-04-20,2.086,Normal
+2025-04-21,2.129,Normal
+2025-04-22,2.185,Normal
+2025-04-23,2.210,Normal
+2025-04-24,2.231,Normal
+2025-04-25,2.224,Normal
+2025-04-26,2.230,Normal
+2025-04-27,2.231,Normal
+2025-04-28,2.244,Normal
+2025-04-29,2.269,Normal
+2025-04-30,2.266,Normal
+2025-05-01,2.265,Normal
+2025-05-02,2.244,Normal
+2025-05-03,2.245,Normal
+2025-05-04,2.250,Normal
+2025-05-05,2.274,Caudal Alto
+2025-05-06,2.315,Caudal Alto
+2025-05-07,2.330,Caudal Alto
+2025-05-08,2.346,Caudal Alto
+2025-05-09,2.338,Caudal Alto
+2025-05-10,2.344,Caudal Alto
+2025-05-11,2.346,Caudal Alto
+2025-05-12,2.357,Caudal Alto
+2025-05-13,2.376,Caudal Alto
+2025-05-14,2.362,Caudal Alto
+2025-05-15,2.345,Caudal Alto
+2025-05-16,2.302,Caudal Alto
+2025-05-17,2.276,Caudal Alto
+2025-05-18,2.252,Normal
+2025-05-19,2.247,Normal
+2025-05-20,2.261,Normal
+2025-05-21,2.254,Normal
+2025-05-22,2.255,Normal
+2025-05-23,2.241,Normal
+2025-05-24,2.252,Normal
+2025-05-25,2.268,Normal
+2025-05-26,2.303,Caudal Alto
+2025-05-27,2.352,Caudal Alto
+2025-05-28,2.373,Caudal Alto
+2025-05-29,2.391,Caudal Alto
+2025-05-30,2.383,Caudal Alto
+2025-05-31,2.385,Caudal Alto
+2025-06-01,2.382,Caudal Alto
+2025-06-02,2.389,Caudal Alto
+2025-06-03,2.404,Caudal Alto
+2025-06-04,2.389,Caudal Alto
+2025-06-05,2.373,Caudal Alto
+2025-06-06,2.337,Caudal Alto
+2025-06-07,2.322,Caudal Alto
+2025-06-08,2.313,Caudal Alto
+2025-06-09,2.326,Caudal Alto
+2025-06-10,2.361,Caudal Alto
+2025-06-11,2.376,Caudal Alto
+2025-06-12,2.398,Caudal Alto
+2025-06-13,2.404,Caudal Alto
+2025-06-14,2.431,Caudal Alto
+2025-06-15,2.461,Caudal Alto
+2025-06-16,2.505,Caudal Alto
+2025-06-17,2.561,Caudal Alto
+2025-06-18,2.585,Caudal Alto
+2025-06-19,2.604,Caudal Alto
+2025-06-20,2.594,Caudal Alto
+2025-06-21,2.595,Caudal Alto
+2025-06-22,2.591,Caudal Alto
+2025-06-23,2.596,Caudal Alto
+2025-06-24,2.611,Caudal Alto
+2025-06-25,2.596,Caudal Alto
+2025-06-26,2.579,Caudal Alto
+2025-06-27,2.540,Caudal Alto
+2025-06-28,2.518,Caudal Alto
+2025-06-29,2.497,Caudal Alto
+2025-06-30,2.492,Caudal Alto
+2025-07-01,2.500,Caudal Alto
+2025-07-02,2.482,Caudal Alto
+2025-07-03,2.462,Caudal Alto
+2025-07-04,2.419,Caudal Alto
+2025-07-05,2.393,Caudal Alto
+2025-07-06,2.365,Caudal Alto
+2025-07-07,2.352,Caudal Alto
+2025-07-08,2.353,Caudal Alto
+2025-07-09,2.328,Caudal Alto
+2025-07-10,2.307,Caudal Alto
+2025-07-11,2.268,Normal
+2025-07-12,2.254,Normal
+2025-07-13,2.249,Normal
+2025-07-14,2.268,Normal
+2025-07-15,2.310,Caudal Alto
+2025-07-16,2.334,Caudal Alto
+2025-07-17,2.366,Caudal Alto
+2025-07-18,2.384,Caudal Alto
+2025-07-19,2.422,Caudal Alto
+2025-07-20,2.463,Caudal Alto
+2025-07-21,2.518,Caudal Alto
+2025-07-22,2.583,Caudal Alto
+2025-07-23,2.614,Caudal Alto
+2025-07-24,2.637,Caudal Alto
+2025-07-25,2.628,Caudal Alto
+2025-07-26,2.627,Caudal Alto
+2025-07-27,2.616,Caudal Alto
+2025-07-28,2.612,Caudal Alto
+2025-07-29,2.615,Caudal Alto
+2025-07-30,2.585,Caudal Alto
+2025-07-31,2.553,Caudal Alto
+2025-08-01,2.498,Caudal Alto
+2025-08-02,2.462,Caudal Alto
+2025-08-03,2.431,Caudal Alto
+2025-08-04,2.418,Caudal Alto
+2025-08-05,2.425,Caudal Alto
+2025-08-06,2.408,Caudal Alto
+2025-08-07,2.395,Caudal Alto
+2025-08-08,2.363,Caudal Alto
+2025-08-09,2.350,Caudal Alto
+2025-08-10,2.337,Caudal Alto
+2025-08-11,2.339,Caudal Alto
+2025-08-12,2.352,Caudal Alto
+2025-08-13,2.335,Caudal Alto
+2025-08-14,2.316,Caudal Alto
+2025-08-15,2.273,Normal
+2025-08-16,2.247,Normal
+2025-08-17,2.222,Normal
+2025-08-18,2.214,Normal
+2025-08-19,2.223,Normal
+2025-08-20,2.209,Normal
+2025-08-21,2.201,Normal
+2025-08-22,2.176,Normal
+2025-08-23,2.175,Normal
+2025-08-24,2.179,Normal
+2025-08-25,2.202,Normal
+2025-08-26,2.241,Normal
+2025-08-27,2.254,Normal
+2025-08-28,2.266,Normal
+2025-08-29,2.253,Normal
+2025-08-30,2.254,Normal
+2025-08-31,2.252,Normal
+2025-09-01,2.261,Normal
+2025-09-02,2.280,Caudal Alto
+2025-09-03,2.267,Normal
+2025-09-04,2.252,Normal
+2025-09-05,2.213,Normal
+2025-09-06,2.192,Normal
+2025-09-07,2.172,Normal
+2025-09-08,2.168,Normal
+2025-09-09,2.179,Normal
+2025-09-10,2.165,Normal
+2025-09-11,2.151,Normal
+2025-09-12,2.116,Normal
+2025-09-13,2.097,Normal
+2025-09-14,2.077,Normal
+2025-09-15,2.070,Normal
+2025-09-16,2.073,Normal
+2025-09-17,2.045,Normal
+2025-09-18,2.013,Normal
+2025-09-19,1.957,Normal
+2025-09-20,1.917,Normal
+2025-09-21,1.878,Caudal Bajo
+2025-09-22,1.857,Caudal Bajo
+2025-09-23,1.854,Caudal Bajo
+2025-09-24,1.830,Caudal Bajo
+2025-09-25,1.813,Caudal Bajo
+2025-09-26,1.783,Caudal Bajo
+2025-09-27,1.779,Caudal Bajo
+2025-09-28,1.785,Caudal Bajo
+2025-09-29,1.813,Caudal Bajo
+2025-09-30,1.862,Caudal Bajo
+2025-10-01,1.887,Caudal Bajo
+2025-10-02,1.913,Normal
+2025-10-03,1.917,Normal
+2025-10-04,1.935,Normal
+2025-10-05,1.948,Normal
+2025-10-06,1.971,Normal
+2025-10-07,2.000,Normal
+2025-10-08,1.995,Normal
+2025-10-09,1.984,Normal
+2025-10-10,1.946,Normal
+2025-10-11,1.923,Normal
+2025-10-12,1.899,Normal
+2025-10-13,1.892,Normal
+2025-10-14,1.902,Normal
+2025-10-15,1.890,Caudal Bajo
+2025-10-16,1.883,Caudal Bajo
+2025-10-17,1.861,Caudal Bajo
+2025-10-18,1.862,Caudal Bajo
+2025-10-19,1.870,Caudal Bajo
+2025-10-20,1.898,Normal
+2025-10-21,1.942,Normal
+2025-10-22,1.960,Normal
+2025-10-23,1.978,Normal
+2025-10-24,1.971,Normal
+2025-10-25,1.978,Normal
+2025-10-26,1.982,Normal
+2025-10-27,1.997,Normal
+2025-10-28,2.021,Normal
+2025-10-29,2.013,Normal
+2025-10-30,2.002,Normal
+2025-10-31,1.966,Normal
+2025-11-01,1.946,Normal
+2025-11-02,1.927,Normal
+2025-11-03,1.924,Normal
+2025-11-04,1.936,Normal
+2025-11-05,1.922,Normal
+2025-11-06,1.910,Normal
+2025-11-07,1.879,Caudal Bajo
+2025-11-08,1.867,Caudal Bajo
+2025-11-09,1.858,Caudal Bajo
+2025-11-10,1.866,Caudal Bajo
+2025-11-11,1.891,Normal
+2025-11-12,1.890,Caudal Bajo
+2025-11-13,1.890,Normal
+2025-11-14,1.871,Caudal Bajo
+2025-11-15,1.872,Caudal Bajo
+2025-11-16,1.877,Caudal Bajo
+2025-11-17,1.899,Normal
+2025-11-18,1.939,Normal
+2025-11-19,1.952,Normal
+2025-11-20,1.968,Normal
+2025-11-21,1.963,Normal
+2025-11-22,1.975,Normal
+2025-11-23,1.987,Normal
+2025-11-24,2.011,Normal
+2025-11-25,2.047,Normal
+2025-11-26,2.050,Normal
+2025-11-27,2.048,Normal
+2025-11-28,2.019,Normal
+2025-11-29,2.003,Normal
+2025-11-30,1.983,Normal
+2025-12-01,1.975,Normal
+2025-12-02,1.979,Normal
+2025-12-03,1.955,Normal
+2025-12-04,1.932,Normal
+2025-12-05,1.891,Normal
+2025-12-06,1.871,Caudal Bajo
+2025-12-07,1.857,Caudal Bajo
+2025-12-08,1.864,Caudal Bajo
+2025-12-09,1.891,Normal
+2025-12-10,1.895,Normal
+2025-12-11,1.903,Normal
+2025-12-12,1.891,Normal
+2025-12-13,1.898,Normal
+2025-12-14,1.906,Normal
+2025-12-15,1.927,Normal
+2025-12-16,1.960,Normal
+2025-12-17,1.961,Normal
+2025-12-18,1.959,Normal
+2025-12-19,1.931,Normal
+2025-12-20,1.919,Normal
+2025-12-21,1.906,Normal
+2025-12-22,1.908,Normal
+2025-12-23,1.926,Normal
+2025-12-24,1.918,Normal
+2025-12-25,1.914,Normal
+2025-12-26,1.891,Normal
+2025-12-27,1.890,Caudal Bajo
+2025-12-28,1.893,Normal
+2025-12-29,1.915,Normal
+2025-12-30,1.952,Normal
+2025-12-31,1.963,Normal

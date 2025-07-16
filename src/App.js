@@ -4,6 +4,7 @@ import Inicio from './pages/Inicio';
 import Informacion from './pages/Informacion';
 import Juegos from './pages/Juegos';
 import Mapa from './pages/Mapa';
+import Modelos from './pages/Modelos';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/informacion" element={<Informacion />} />
         <Route path="/juegos" element={<Juegos />} />
         <Route path="/mapa" element={<Mapa />} />
+        <Route path="/modelos" element={<Modelos />} />
       </Routes>
     </Router>
   );

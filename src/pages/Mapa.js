@@ -97,12 +97,12 @@ const PredictionModal = ({ predictionInfo, onClose }) => {
             <div className="prediction-placeholder">
               <div className="prediction-chart-image-container" onClick={() => setIsImageZoomed(true)}>
                  <img 
-                    src={graphImage} 
-                    alt={`Gráfico de predicción para ${station.name}`} 
-                    className="prediction-chart-image"
+                   src={graphImage} 
+                   alt={`Gráfico de predicción para ${station.name}`} 
+                   className="prediction-chart-image"
                  />
                  <div className="image-zoom-overlay">
-                    <span>🔍</span> Haz clic para ampliar
+                   <span>🔍</span> Haz clic para ampliar
                  </div>
               </div>
               
@@ -404,12 +404,10 @@ export default function Mapa() {
 
   return (
     <div className="map-page-container">
-      <div className="hero-section">
-        <div className="hero-background"></div>
-        <div className="hero-content">
-          <h1 className="hero-title">Red de Monitoreo Climático</h1>
-          <p className="hero-subtitle">Explora nuestras estaciones de monitoreo en el Antisana y accede a predicciones meteorológicas precisas.</p>
-        </div>
+      {/* Estructura del Hero Section simplificada */}
+      <div className="mapa-hero-section">
+        <h1 className="mapa-hero-title">Red de Monitoreo Climático</h1>
+        <p className="mapa-hero-subtitle">Explora nuestras estaciones de monitoreo en el Antisana y accede a predicciones meteorológicas precisas.</p>
       </div>
 
       <div className="stats-section">

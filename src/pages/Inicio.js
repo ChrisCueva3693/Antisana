@@ -13,7 +13,7 @@ const FeatureCard = ({ title, children }) => (
 
 // Componente para las tarjetas circulares de información
 const InfoCircle = ({ image, title, text, icon, link, isExternal }) => {
-  
+
   // Creamos un componente interno para el botón, que será un enlace <a> o un <Link>
   const ButtonLink = () => {
     if (isExternal) {
@@ -50,15 +50,8 @@ export default function Inicio() {
     <div className="inicio-container">
       {/* --- Sección Principal (Hero) --- */}
       <section className="hero-section">
+        {/* La imagen de fondo ahora cubre toda la sección sin texto superpuesto */}
         <div className="hero-background-image" style={{ backgroundImage: "url('/inicio/antisana_portada.webp')" }}></div>
-        <div className="hero-shape">
-          <div className="hero-text-content">
-            <h1 className="hero-title">
-              ANTISANA
-            </h1>
-            <p className="hero-subtitle">Guardián del Agua y la Vida</p>
-          </div>
-        </div>
       </section>
 
       {/* --- Sección de Características --- */}
@@ -78,14 +71,14 @@ export default function Inicio() {
       <section className="video-section">
         <h2 className="section-title">Conoce más sobre el Antisana</h2>
         <div className="video-container">
-          <iframe 
-            width="560" 
-            height="315" 
-            src="https://www.youtube.com/embed/psQTd-Blqp0?si=bzqlOOLETOV0fIVc" 
-            title="YouTube video player" 
-            frameBorder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            referrerPolicy="strict-origin-when-cross-origin" 
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/psQTd-Blqp0?si=bzqlOOLETOV0fIVc"
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen>
           </iframe>
         </div>
@@ -93,7 +86,7 @@ export default function Inicio() {
 
       {/* --- Sección de Tarjetas Circulares con Enlaces --- */}
       <section className="info-circles-section">
-        <InfoCircle 
+        <InfoCircle
           image="/inicio/ecosistema.webp"
           title="El Ecosistema del Páramo"
           text="Descubre la importancia del páramo como una esponja natural que regula el ciclo del agua."
@@ -101,7 +94,7 @@ export default function Inicio() {
           link="https://www.antisana.com/#antisana-map"
           isExternal={true}
         />
-        <InfoCircle 
+        <InfoCircle
           image="/inicio/prediccion.jpg"
           title="Predicciones Climáticas"
           text="Explora nuestro mapa interactivo con las predicciones de lluvia y sequía para los próximos meses."
@@ -110,7 +103,7 @@ export default function Inicio() {
           isExternal={false}
         />
         {/* ----- INICIO DEL CAMBIO ----- */}
-        <InfoCircle 
+        <InfoCircle
           image="/inicio/prophet.png"
           title="Nuestro Modelo Predictivo"
           text="Aprende cómo funciona nuestro modelo y la tecnología que utilizamos para analizar el clima."

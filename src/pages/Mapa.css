@@ -2,72 +2,36 @@
 .map-page-container {
   background-color: #f0f2f5;
   min-height: 100vh;
+  padding: 12rem 2rem; /* Aumentado de 4rem a 6rem para bajar el contenido */
+  font-family: 'Inter', sans-serif;
+  /* ¡CORRECCIÓN DE CENTRADO! Usamos Flexbox para alinear todo el contenido */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* --- SECCIÓN HERO (TÍTULO PRINCIPAL) --- */
-.hero-section {
-  position: relative;
-  text-align: center; /* <<<<<<< CORRECCIÓN: Centrar el texto */
-  padding: 5rem 40rem;
-  color: white;
-  overflow: hidden;
+.mapa-hero-section {
+  text-align: center;
+  margin-bottom: 6rem;
+  animation: fadeInUp 0.8s ease-out;
 }
 
-.hero-background {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-image: linear-gradient(rgba(20, 30, 40, 0.7), rgba(20, 30, 40, 0.9)), 
-    url('https://i0.wp.com/sinia.go.cr/wp-content/uploads/2022/02/sensores-remotos-scaled.jpg?fit=2560%2C1920&ssl=1');
-  background-size: cover;
-  background-position: center 30%;
-  animation: zoom-in 20s ease-out infinite alternate;
-  z-index: 1;
-}
+/* Se elimina la clase .hero-background y su animación de zoom */
 
-@keyframes zoom-in {
-  from { transform: scale(1); }
-  to { transform: scale(1.1); }
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  animation: fadeInUp 1s ease-out;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
-
-.hero-title {
-  font-size: 3.5rem;
+.mapa-hero-title {
+  font-size: 2.5rem;
   font-weight: 700;
-  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  color: #1e392a;
   margin: 0;
+  text-shadow: none !important; /* Asegura que no haya sombra de texto */
 }
 
-.hero-subtitle {
-  font-size: 1.25rem;
+.mapa-hero-subtitle {
+  font-size: 1.125rem;
+  color: #555;
   max-width: 600px;
-  margin: 1rem auto 0;
-  opacity: 0.9;
+  margin: 0.5rem auto 0;
 }
 
 /* --- SECCIÓN DE ESTADÍSTICAS ANIMADAS --- */
@@ -76,7 +40,9 @@
   justify-content: space-around;
   background-color: #ffffff;
   padding: 2rem 1rem;
-  margin: -2rem 2rem 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 1200px;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   position: relative;
@@ -106,9 +72,9 @@
 /* --- LAYOUT DE CONTENIDO PRINCIPAL --- */
 .map-content-layout {
   display: flex;
+  width: 100%;
   max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem;
+  padding: 0; /* El padding ya está en el contenedor principal */
   gap: 2rem;
   min-height: 600px;
 }
@@ -175,7 +141,7 @@
 .station-header {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 1.5rem; /* Aumentado para dar espacio a los grupos */
+  margin-bottom: 1.5rem;
 }
 
 .station-icon-container {
@@ -226,7 +192,6 @@
   margin: 0;
 }
 
-/* --- NUEVO: Estilos para los grupos de predicción --- */
 .prediction-group {
     background-color: #f8fafc;
     border-radius: 0.75rem;
@@ -252,8 +217,8 @@
 .action-button {
   display: flex;
   align-items: center;
-  justify-content: center; /* Centra el contenido del botón */
-  gap: 0.5rem; /* Espacio entre icono y texto */
+  justify-content: center;
+  gap: 0.5rem;
   padding: 0.5rem 0.75rem;
   border: none;
   border-radius: 0.5rem;
@@ -261,7 +226,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  flex: 1; /* Hace que los botones ocupen el mismo espacio */
+  flex: 1;
 }
 
 .prediction-btn {
@@ -430,23 +395,6 @@
   color: #555;
 }
 
-.popup-button {
-  background-color: #c29346;
-  color: white;
-  border: none;
-  border-radius: 0.375rem;
-  padding: 0.375rem 0.75rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 0.5rem;
-  transition: background-color 0.2s;
-}
-
-.popup-button:hover {
-  background-color: #a57c39;
-}
-
 /* --- MODAL MEJORADO --- */
 .modal-overlay {
   position: fixed; 
@@ -479,6 +427,16 @@
 
 .modal-content-exit {
   animation: modalSlideOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 @keyframes modalSlideIn {
@@ -566,11 +524,6 @@
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 1;
 }
-.chart-description {
-  font-size: 0.875rem;
-  color: #6b7280;
-  margin: 0;
-}
 
 .station-details { background: linear-gradient(145deg, #f8fafc, #ffffff); border-radius: 1rem; padding: 1.5rem; margin-bottom: 2rem; border: 1px solid #e2e8f0; }
 .details-title { font-size: 1.25rem; font-weight: 700; color: #1e392a; margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.5rem; }
@@ -610,6 +563,11 @@
   border-radius: 0.5rem;
 }
 
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* --- RESPONSIVE DESIGN --- */
 @media (max-width: 1200px) {
   .map-content-layout { flex-direction: column; padding: 1rem; }
@@ -618,9 +576,12 @@
 }
 
 @media (max-width: 768px) {
-  .hero-title { font-size: 2.5rem; }
+  .map-page-container {
+    padding: 3rem 1rem;
+  }
+  .hero-title { font-size: 2.25rem; }
   .hero-subtitle { font-size: 1rem; }
-  .stats-section { flex-direction: column; gap: 1rem; margin: -1rem 0.5rem 1rem; }
+  .stats-section { flex-direction: column; gap: 1rem; margin: 0 auto 1.5rem; }
   .stat-number { font-size: 2rem; }
   .modal-content { margin: 0.5rem; max-height: 95vh; }
   .modal-image-container { height: 200px; }

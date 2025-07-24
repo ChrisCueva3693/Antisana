@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './Informacion.css';
 
-// --- Componente para el Modal (Ventana Emergente) Corregido ---
+// --- Componente para el Modal (Ventana Emergente) ---
 const InfoModal = ({ data, onClose }) => {
   const [isExiting, setIsExiting] = useState(false);
   
-  // Usamos useCallback para que la función no se recree en cada render,
-  // y la pasamos como dependencia al useEffect.
   const handleClose = useCallback(() => {
     setIsExiting(true);
     setTimeout(() => {
@@ -14,30 +12,22 @@ const InfoModal = ({ data, onClose }) => {
     }, 400); // Esperamos que la animación de salida termine
   }, [onClose]);
 
-  // Este useEffect maneja el scroll del body y la tecla 'Escape'.
-  // Ahora se ejecuta solo cuando 'data' o 'handleClose' cambian.
   useEffect(() => {
-    // Solo aplicamos los efectos si el modal está visible (si hay 'data')
     if (data) {
       document.body.style.overflow = 'hidden';
-
       const handleKeyDown = (e) => {
         if (e.key === 'Escape') {
           handleClose();
         }
       };
-      
       document.addEventListener('keydown', handleKeyDown);
-
-      // Función de limpieza que se ejecuta cuando el componente se desmonta
       return () => {
         document.body.style.overflow = 'unset';
         document.removeEventListener('keydown', handleKeyDown);
       };
     }
-  }, [data, handleClose]); // Dependencias del Hook
+  }, [data, handleClose]);
 
-  // El return condicional ahora está DESPUÉS de todos los hooks.
   if (!data) return null;
 
   return (
@@ -68,17 +58,14 @@ const InfoModal = ({ data, onClose }) => {
             ×
           </button>
         </div>
-
         <div className="modal-body">
           <div className="modal-header">
             <h2 id="modal-title" className="modal-title">{data.title}</h2>
             <div className="modal-decoration"></div>
           </div>
-
           <div className="modal-text">
             {data.content}
           </div>
-
           <div className="modal-footer">
             <button
               onClick={handleClose}
@@ -95,14 +82,13 @@ const InfoModal = ({ data, onClose }) => {
   );
 };
 
-
-// --- Componente para las Tarjetas Interactivas Mejoradas ---
-const InteractiveCard = ({ icon, title, description, onClick, delay, isSpecial = false }) => {
+// --- Componente para las Tarjetas Interactivas ---
+const InteractiveCard = ({ icon, title, description, onClick, delay }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
-      className={`info-card ${isSpecial ? 'info-card-special' : ''}`}
+      className="info-card"
       style={{ animationDelay: `${delay}ms` }}
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
@@ -123,7 +109,6 @@ const InteractiveCard = ({ icon, title, description, onClick, delay, isSpecial =
           <span className="card-icon">{icon}</span>
           <div className={`card-glow ${isHovered ? 'card-glow-active' : ''}`}></div>
         </div>
-
         <div className="card-text">
           <h3 className="card-title">{title}</h3>
           <p className="card-description">{description}</p>
@@ -133,7 +118,6 @@ const InteractiveCard = ({ icon, title, description, onClick, delay, isSpecial =
           </div>
         </div>
       </div>
-
       <div className="card-particles">
         <span className="particle particle-1">✨</span>
         <span className="particle particle-2">💧</span>
@@ -143,50 +127,48 @@ const InteractiveCard = ({ icon, title, description, onClick, delay, isSpecial =
   );
 };
 
-
-// --- Componente para Estadísticas Animadas Corregido ---
+// --- Componente para Estadísticas Animadas ---
 const AnimatedStat = ({ number, label, suffix = "", delay = 0 }) => {
   const [count, setCount] = useState(0);
-  const statRef = useRef(null); // Usamos useRef para obtener la referencia al elemento del DOM
+  const statRef = useRef(null);
 
   useEffect(() => {
-    const element = statRef.current; // Copiamos la referencia a una variable local
+    const element = statRef.current;
     if (!element) return;
 
     const observer = new IntersectionObserver(
-        ([entry]) => {
-            if (entry.isIntersecting) {
-                const duration = 2000;
-                const stepTime = 20;
-                const totalSteps = duration / stepTime;
-                const increment = number / totalSteps;
-                let currentCount = 0;
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const duration = 2000;
+          const stepTime = 20;
+          const totalSteps = duration / stepTime;
+          const increment = number / totalSteps;
+          let currentCount = 0;
 
-                const counter = setInterval(() => {
-                    currentCount += increment;
-                    if (currentCount >= number) {
-                        clearInterval(counter);
-                        setCount(number);
-                    } else {
-                        setCount(currentCount);
-                    }
-                }, stepTime);
-                
-                observer.unobserve(element); // Dejamos de observar una vez que la animación comienza
+          const counter = setInterval(() => {
+            currentCount += increment;
+            if (currentCount >= number) {
+              clearInterval(counter);
+              setCount(number);
+            } else {
+              setCount(currentCount);
             }
-        },
-        { threshold: 0.5 }
+          }, stepTime);
+          
+          observer.unobserve(element);
+        }
+      },
+      { threshold: 0.5 }
     );
 
     observer.observe(element);
 
     return () => {
-      // Usamos la variable local en la función de limpieza
       if (element) {
         observer.unobserve(element);
       }
     };
-  }, [number]); // La dependencia es el número que va a contar
+  }, [number]);
 
   return (
     <div ref={statRef} className="animated-stat" style={{animationDelay: `${delay}ms`}}>
@@ -197,7 +179,7 @@ const AnimatedStat = ({ number, label, suffix = "", delay = 0 }) => {
 };
 
 
-// --- Componente Principal de la Página de Información (sin cambios) ---
+// --- Componente Principal de la Página de Información ---
 export default function Informacion() {
   const [activeModal, setActiveModal] = useState(null);
 
@@ -205,7 +187,7 @@ export default function Informacion() {
     agua: {
       title: '¿De dónde viene el agua?',
       description: 'Descubre el secreto del páramo andino',
-      imageUrl: 'https://www.escapetoursecuador.com/wp-content/uploads/2020/07/paramo-antisana-scaled.jpg',
+      imageUrl: '/inicio/viene_agua.png',
       content: (
         <div>
           <p>Imagina una esponja gigante en lo alto de una montaña. Esa esponja es el <strong>Páramo del Antisana</strong>.</p>
@@ -219,7 +201,7 @@ export default function Informacion() {
     ciclo: {
       title: 'El increíble viaje del agua',
       description: 'Sigue el camino del agua por el mundo',
-      imageUrl: 'https://www.mundoprimaria.com/wp-content/uploads/2019/07/ciclo-del-agua-para-ni%C3%B1os.jpg',
+      imageUrl: '/inicio/viaje_agua.png',
       content: (
         <div>
           <p>El agua es una gran viajera. El sol la calienta y la hace subir al cielo como vapor. Allá arriba, se junta en las nubes y, cuando están muy llenas, el agua cae como lluvia.</p>
@@ -235,10 +217,10 @@ export default function Informacion() {
     mision: {
       title: 'Nuestra Misión Especial',
       description: 'Tecnología para proteger la naturaleza',
-      imageUrl: 'https://i0.wp.com/sinia.go.cr/wp-content/uploads/2022/02/sensores-remotos-scaled.jpg?fit=2560%2C1920&ssl=1',
+      imageUrl: '/inicio/predicon_agua.png',
       content: (
         <div>
-          <p className="mb-4">Este proyecto quiere crear un sistema inteligente para predecir cuánta lluvia caerá en el Antisana, para así saber cuándo habrá mucha lluvia (y evitar inundaciones) o poca (y cuidar el agua).</p>
+          <p>Este proyecto quiere crear un sistema inteligente para predecir cuánta lluvia caerá en el Antisana, para así saber cuándo habrá mucha lluvia (y evitar inundaciones) o poca (y cuidar el agua).</p>
           <div className="mission-objectives">
             <h4 className="objectives-title">🎯 Nuestros Objetivos:</h4>
             <div className="objectives-grid">
@@ -254,7 +236,7 @@ export default function Informacion() {
     animales: {
       title: 'Guardianes del Páramo',
       description: 'Conoce a los increíbles habitantes del Antisana',
-      imageUrl: 'https://www.worldanimalprotection.org/sites/default/files/styles/1200x630/public/media/int_files/735201.jpg?itok=3u-g_B1j',
+      imageUrl: '/inicio/animales.png',
       content: (
         <div>
           <p>En el Antisana viven animales asombrosos como el <strong>Oso de Anteojos</strong> y el majestuoso <strong>Cóndor Andino</strong>.</p>
@@ -269,7 +251,7 @@ export default function Informacion() {
     sensores: {
       title: 'Nuestros Sensores Espías',
       description: 'Tecnología que vigila el clima',
-      imageUrl: 'https://www.ambientum.com/wp-content/uploads/2018/12/estacion-meteorologica-696x464.jpg',
+      imageUrl: '/inicio/sensores.png',
       content: (
         <div>
           <p>¿Cómo sabemos cuánta lluvia cae? ¡Usamos <strong>sensores inteligentes</strong>!</p>
@@ -285,10 +267,10 @@ export default function Informacion() {
     ayuda: {
       title: '¡Conviértete en Guardián del Agua!',
       description: 'Pequeñas acciones, gran impacto',
-      imageUrl: 'https://img.freepik.com/vector-premium/nino-lindo-feliz-cierra-grifo-agua_97632-2361.jpg',
+      imageUrl: '/inicio/cuidar_agua.png',
       content: (
         <div>
-          <p className="mb-4">¡Tú también puedes ayudar a cuidar el agua! Cada gotita cuenta para proteger lugares mágicos como el Antisana.</p>
+          <p>¡Tú también puedes ayudar a cuidar el agua! Cada gotita cuenta para proteger lugares mágicos como el Antisana.</p>
           <div className="tips-container">
             <h4 className="tips-title">💡 Consejos de Superhéroe del Agua:</h4>
             <div className="tips-grid">
@@ -306,12 +288,10 @@ export default function Informacion() {
 
   return (
     <div className="info-page-container">
-      <div className="hero-section">
-        <div className="hero-background"></div>
-        <div className="hero-content">
-            <h1 className="hero-title">Un Ecosistema de Información</h1>
-            <p className="hero-subtitle">Descubre por qué el Antisana es una fuente de vida y cómo la tecnología nos ayuda a protegerlo.</p>
-        </div>
+      {/* Esta es la estructura simplificada del Hero Section */}
+      <div className="info-hero-section">
+        <h1 className="info-hero-title">Un Ecosistema de Información</h1>
+        <p className="info-hero-subtitle">Descubre por qué el Antisana es una fuente de vida y cómo la tecnología nos ayuda a protegerlo.</p>
       </div>
 
       <div className="stats-section">
@@ -329,7 +309,6 @@ export default function Informacion() {
             description={aboutContent[key].description}
             onClick={() => setActiveModal(aboutContent[key])}
             delay={index * 100}
-            isSpecial={key === 'ayuda'}
           />
         ))}
       </div>

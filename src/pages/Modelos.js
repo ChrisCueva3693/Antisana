@@ -13,8 +13,8 @@ const CodeBlock = ({ code, language }) => (
 );
 
 // Componente para una entrada del blog sobre un modelo
-const ModelPost = ({ title, icon, description, code, language }) => (
-  <article className="model-post">
+const ModelPost = ({ title, icon, description, code, language, animationDelay }) => (
+  <article className="model-post" style={{ animationDelay: `${animationDelay}s` }}>
     <header className="post-header">
       <span className="post-icon">{icon}</span>
       <h2 className="post-title">{title}</h2>
@@ -28,6 +28,7 @@ const ModelPost = ({ title, icon, description, code, language }) => (
 );
 
 export default function Modelos() {
+  // Código para Precipitación
   const prophetPrecipitacionCode = `
 # --- PASO 0: IMPORTAR LAS HERRAMIENTAS NECESARIAS ---
 import pandas as pd
@@ -108,8 +109,8 @@ def forecast_with_prophet(csv_path):
 
     # Dibujamos la línea principal de la predicción.
     ax.plot(forecast_future['ds'], forecast_future['yhat'], 
-            color='#00b894', linewidth=4, 
-            label='Prediccion Normal', zorder=3)
+             color='#00b894', linewidth=4, 
+             label='Prediccion Normal', zorder=3)
 
     # Dibujamos los puntos de colores para los días especiales.
     sequia = forecast_future[forecast_future['Etiqueta'] == 'Sequía']
@@ -136,6 +137,7 @@ def forecast_with_prophet(csv_path):
 # forecast_with_prophet("datos_estacion_limboasi.csv")
   `;
 
+  // Código para Caudal
   const prophetCaudalCode = `
 # --- PASO 0: IMPORTAR LIBRERÍAS ---
 import pandas as pd
@@ -193,6 +195,175 @@ resultado = predicciones[['ds', 'yhat', 'Etiqueta']].copy()
 resultado.to_csv("H15-Ramon_Huañuna_Caudal-PREDICCION_365DIAS.csv", index=False, float_format='%.2f')
   `;
 
+  // NUEVO CÓDIGO PARA TEMPERATURA
+  const prophetTemperaturaCode = `
+import pandas as pd
+from prophet import Prophet
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+
+# --- 1. Cargar y preparar datos ---
+# Leer el nuevo CSV de temperatura
+try:
+    df = pd.read_csv("H15-Ramon_Huañuna_Temperatura-Diario.csv", parse_dates=['fecha'])
+except FileNotFoundError:
+    print("Error: El archivo 'H15-Ramon_Huañuna_Temperatura-Diario.csv' no fue encontrado.")
+    print("Por favor, asegúrate de que el archivo esté en el mismo directorio que el script.")
+    exit()
+
+
+# Preparar datos para Prophet (columnas 'ds' para fecha y 'y' para valor)
+df_prophet = df[['fecha', 'valor']].copy()
+df_prophet.rename(columns={'fecha': 'ds', 'valor': 'y'}, inplace=True)
+
+
+# --- 2. Configurar y entrenar el modelo Prophet ---
+# Se ajusta el modo de estacionalidad a 'additive', que es más común para la temperatura.
+# Los otros parámetros se mantienen, pero podrían ajustarse para optimizar el modelo.
+model = Prophet(
+    seasonality_mode='additive',       # Usa estacionalidad aditiva, mejor para temperatura
+    changepoint_prior_scale=0.1,       # Flexibilidad de la tendencia
+    seasonality_prior_scale=20.0,      # Peso de la estacionalidad
+    yearly_seasonality=20              # Complejidad de la curva anual
+)
+
+print("Entrenando el modelo para predicción de temperatura...")
+model.fit(df_prophet)
+print("Entrenamiento completado.")
+
+
+# --- 3. Crear fechas futuras y predecir ---
+# Crear un dataframe con 365 días en el futuro para la predicción
+future = model.make_future_dataframe(periods=365)
+forecast = model.predict(future)
+
+
+# --- 4. Preparar datos para el gráfico ---
+# Extraer solo las predicciones futuras (días posteriores a la última fecha histórica)
+fecha_max_historico = df_prophet['ds'].max()
+predicciones = forecast[forecast['ds'] > fecha_max_historico].copy()
+
+# Clasificar los días predichos en Temperatura Alta, Baja o Normal
+# Se usan los cuantiles 0.25 y 0.75 como umbrales
+p25 = predicciones['yhat'].quantile(0.25)
+p75 = predicciones['yhat'].quantile(0.75)
+
+def clasificar_temperatura(valor):
+    """Clasifica un valor de temperatura en 'Baja', 'Alta' o 'Normal'."""
+    if valor < p25:
+        return 'Temperatura Baja'
+    elif valor > p75:
+        return 'Temperatura Alta'
+    else:
+        return 'Normal'
+
+predicciones['Etiqueta'] = predicciones['yhat'].apply(clasificar_temperatura)
+
+
+# --- 5. Crear el gráfico con el nuevo estilo ---
+
+# Paleta de colores para temperatura
+BACKGROUND_COLOR = '#ffffff'
+PLOT_AREA_COLOR = '#f8f9fa'
+TEXT_COLOR = '#2d3436'
+GRID_COLOR = '#ddd'
+NORMAL_LINE_COLOR = '#2ecc71'    # Verde para la predicción normal
+TEMP_ALTA_COLOR = '#e74c3c'      # Rojo para temperatura alta
+TEMP_BAJA_COLOR = '#3498db'      # Azul para temperatura baja
+
+# Crear la figura y los ejes
+fig, ax = plt.subplots(figsize=(14, 8), facecolor=BACKGROUND_COLOR)
+ax.set_facecolor(PLOT_AREA_COLOR)
+
+# Línea de predicción principal
+ax.plot(predicciones['ds'], predicciones['yhat'],
+         color=NORMAL_LINE_COLOR, linewidth=3,
+         label='Predicción Normal', zorder=3)
+
+# Puntos para eventos extremos (Temperatura Alta y Baja)
+temp_baja = predicciones[predicciones['Etiqueta'] == 'Temperatura Baja']
+temp_alta = predicciones[predicciones['Etiqueta'] == 'Temperatura Alta']
+
+ax.scatter(temp_baja['ds'], temp_baja['yhat'],
+           color=TEMP_BAJA_COLOR, s=80,
+           label='Días de Temperatura Baja', zorder=5,
+           edgecolors='white', linewidth=2)
+
+ax.scatter(temp_alta['ds'], temp_alta['yhat'],
+           color=TEMP_ALTA_COLOR, s=80,
+           label='Días de Temperatura Alta', zorder=5,
+           edgecolors='white', linewidth=2)
+
+# --- Ajustes estéticos del gráfico ---
+# Título
+ax.set_title('PREDICCIÓN DE TEMPERATURA - PRÓXIMOS 365 DÍAS',
+             fontsize=18, fontweight='bold', color=TEXT_COLOR, pad=25)
+
+# Etiquetas de los ejes
+ax.set_xlabel('FECHA', fontsize=14, color=TEXT_COLOR, fontweight='bold')
+ax.set_ylabel('TEMPERATURA (°C)', fontsize=14, color=TEXT_COLOR, fontweight='bold')
+
+# Formato de fechas en el eje X
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %Y'))
+ax.xaxis.set_major_locator(mdates.MonthLocator(interval=2))
+plt.setp(ax.get_xticklabels(), rotation=0, ha='center', fontsize=12)
+
+# Cuadrícula
+ax.grid(True, linestyle='--', alpha=0.5, color=GRID_COLOR, linewidth=1)
+ax.set_axisbelow(True)
+
+# Bordes del gráfico
+for spine in ax.spines.values():
+    spine.set_color('#bdc3c7')
+    spine.set_linewidth(1.5)
+
+# Ticks (marcas en los ejes)
+ax.tick_params(colors=TEXT_COLOR, which='both', labelsize=12)
+
+# Leyenda
+legend = ax.legend(loc='upper left', facecolor='white',
+                    edgecolor='#bdc3c7', framealpha=1.0,
+                    fontsize=12, title='Tipos de Temperatura', title_fontsize=13)
+legend.get_frame().set_linewidth(1.5)
+legend.get_title().set_weight('bold')
+
+# Caja de resumen
+info_text = f"""RESUMEN:
+Días de Temperatura Alta: {len(temp_alta)}
+Días de Temperatura Baja: {len(temp_baja)}
+Temperatura promedio: {predicciones['yhat'].mean():.2f} °C"""
+
+# Modificado: Cambiado y=0.98 a y=0.02 y va='top' a va='bottom' para moverlo abajo
+ax.text(0.98, 0.02, info_text, transform=ax.transAxes,
+        fontsize=11, color=TEXT_COLOR, ha='right', va='bottom',
+        bbox=dict(boxstyle='round,pad=0.6', facecolor='white',
+                  edgecolor='#74b9ff', linewidth=1.5, alpha=0.9),
+        weight='bold')
+
+# Firma
+fig.text(0.99, 0.01, 'Proyecto Antisana',
+          ha='right', va='bottom', fontsize=10, color='#636e72', weight='bold')
+
+plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+
+# Guardar y mostrar el gráfico
+output_image_file = "H15-Ramon_Huañuna_Temperatura-PREDICCION_365DIAS.png"
+plt.savefig(output_image_file, dpi=300)
+plt.show()
+
+
+# --- 6. Guardar CSV con las predicciones y etiquetas ---
+resultado = predicciones[['ds', 'yhat', 'Etiqueta']].copy()
+resultado.rename(columns={'ds': 'fecha', 'yhat': 'valor_predicho', 'Etiqueta': 'clasificacion'}, inplace=True)
+
+output_csv_file = "H15-Ramon_Huañuna_Temperatura-PREDICCION_365DIAS.csv"
+resultado.to_csv(output_csv_file, index=False, float_format='%.3f')
+
+print("\n✅ Archivos generados:")
+print(f"📊 Gráfico: {output_image_file}")
+print(f"📝 Predicciones: {output_csv_file}")
+  `;
+
   return (
     <div className="modelos-page-container">
       <div className="modelos-hero-section">
@@ -214,6 +385,7 @@ resultado.to_csv("H15-Ramon_Huañuna_Caudal-PREDICCION_365DIAS.csv", index=False
         </p>
         <ul>
             <li><strong>Tendencia general:</strong> ¿Está lloviendo más o menos a lo largo de los años?</li>
+            {/* CORRECCIÓN: Asegúrate de que este </strong> esté bien escrito */}
             <li><strong>Patrones estacionales:</strong> ¿Qué meses conforman la temporada de lluvias y la temporada seca en la zona del Antisana?</li>
         </ul>
         <p>
@@ -222,20 +394,32 @@ resultado.to_csv("H15-Ramon_Huañuna_Caudal-PREDICCION_365DIAS.csv", index=False
       </div>
 
       <div className="modelos-content">
-        <ModelPost 
+        <ModelPost
           title="Nuestro Modelo para Predecir las Lluvias"
           icon="🌦️"
           description="Este primer código es nuestra plantilla para analizar las precipitaciones. Está diseñado como una función reutilizable: le das la ruta de un archivo CSV con datos de lluvia y automáticamente genera los gráficos y las predicciones. Esto nos permite analizar cualquiera de nuestras estaciones pluviales con el mismo código."
           code={prophetPrecipitacionCode}
           language="python"
+          animationDelay={0.4}
         />
 
-        <ModelPost 
+        <ModelPost
           title="Nuestro Modelo para Predecir el Caudal de los Ríos"
           icon="💧"
           description="Este segundo script está optimizado para el caudal de los ríos. Aunque la estructura es muy similar, notarás que los parámetros del modelo Prophet son diferentes, ya que el comportamiento de un río no es igual al de la lluvia. Este código también es una plantilla: podemos usarlo con los datos de cualquier estación que mida caudales."
           code={prophetCaudalCode}
           language="python"
+          animationDelay={0.6}
+        />
+
+        {/* NUEVA SECCIÓN: Modelo para Predecir la Temperatura */}
+        <ModelPost
+          title="Nuestro Modelo para Predecir la Temperatura"
+          icon="🌡️"
+          description="Este código es para predecir las temperaturas. Al igual que los otros modelos, utiliza Prophet, pero con configuraciones específicas para capturar los patrones térmicos. Nos ayuda a entender las variaciones estacionales y a prepararnos para periodos de frío o calor, aplicando el mismo proceso a los datos de temperatura de cualquier estación."
+          code={prophetTemperaturaCode}
+          language="python"
+          animationDelay={0.8}
         />
       </div>
 
@@ -245,184 +429,3 @@ resultado.to_csv("H15-Ramon_Huañuna_Caudal-PREDICCION_365DIAS.csv", index=False
     </div>
   );
 }
-
-/* Asegúrate de que tu archivo Modelos.css contenga los siguientes estilos.
-  He añadido la clase .info-section y sus estilos correspondientes.
-*/
-/*
-.modelos-page-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  margin-top: 30px; 
-  padding: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.modelos-hero-section {
-  text-align: center;
-  margin-bottom: 50px;
-  padding: 40px 20px;
-  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
-  border-radius: 15px;
-  color: white;
-}
-
-.modelos-hero-title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
-
-.modelos-hero-subtitle {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  max-width: 800px;
-  margin: 0 auto;
-  opacity: 0.95;
-}
-
-.info-section {
-    background-color: #f8f9fa;
-    padding: 30px;
-    border-radius: 15px;
-    margin-bottom: 50px;
-    border: 1px solid #e9ecef;
-}
-
-.info-section h2 {
-    font-size: 2rem;
-    color: #333;
-    border-bottom: 3px solid #00b894;
-    padding-bottom: 10px;
-    margin-top: 0;
-    margin-bottom: 20px;
-}
-
-.info-section p, .info-section ul {
-    color: #555;
-    line-height: 1.7;
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-}
-
-.info-section ul {
-    padding-left: 20px;
-}
-
-.info-section strong {
-    color: #000;
-}
-
-.modelos-content {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.model-post {
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.model-post:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-}
-
-.post-header {
-  background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
-  color: white;
-  padding: 25px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.post-icon {
-  font-size: 2.5rem;
-}
-
-.post-title {
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin: 0;
-}
-
-.post-content {
-  padding: 30px;
-}
-
-.post-description {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #555;
-  margin-bottom: 25px;
-}
-
-.code-title {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 15px;
-  border-left: 4px solid #00b894;
-  padding-left: 15px;
-}
-
-.code-block-container {
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.code-block-container pre {
-  margin: 0 !important;
-  font-size: 0.9rem !important;
-  line-height: 1.4 !important;
-}
-
-.modelos-footer {
-  text-align: center;
-  padding: 40px 20px;
-  margin-top: 50px;
-  background: #f8f9fa;
-  border-radius: 15px;
-  border: 2px solid #e9ecef;
-}
-
-.modelos-footer p {
-  font-size: 1.1rem;
-  color: #666;
-  margin: 0;
-  line-height: 1.6;
-}
-
-@media (max-width: 768px) {
-  .modelos-hero-title {
-    font-size: 2rem;
-  }
-  
-  .modelos-hero-subtitle {
-    font-size: 1rem;
-  }
-
-  .info-section h2 {
-    font-size: 1.6rem;
-  }
-  
-  .post-title {
-    font-size: 1.5rem;
-  }
-  
-  .post-content {
-    padding: 20px;
-  }
-  
-  .modelos-page-container {
-    padding: 15px;
-  }
-}
-*/

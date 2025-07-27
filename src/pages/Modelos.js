@@ -35,7 +35,7 @@ const GithubSection = ({ githubLink, animationDelay }) => (
         </h2>
         <p className="github-description">
             La transparencia es clave. Te invitamos a sumergirte en el corazón de nuestro proyecto.
-            Visita nuestro repositorio en GitHub para ver el código fuente completo de muestra pagina web,
+            Visita nuestro repositorio en GitHub para ver el código fuente completo de nuestra pagina web,
             contribuciones y cómo funciona todo detrás de escena. ¡Tu feedback y colaboración son bienvenidos!
         </p>
         <a href={githubLink} target="_blank" rel="noopener noreferrer" className="github-button">

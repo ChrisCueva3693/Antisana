@@ -27,6 +27,24 @@ const ModelPost = ({ title, icon, description, code, language, animationDelay })
   </article>
 );
 
+// NUEVO COMPONENTE: Sección de GitHub
+const GithubSection = ({ githubLink, animationDelay }) => (
+    <section className="github-section" style={{ animationDelay: `${animationDelay}s` }}>
+        <h2 className="github-title">
+            <span role="img" aria-label="icono de código">👨‍💻</span> Explora Nuestro Código en GitHub
+        </h2>
+        <p className="github-description">
+            La transparencia es clave. Te invitamos a sumergirte en el corazón de nuestro proyecto.
+            Visita nuestro repositorio en GitHub para ver el código fuente completo de muestra pagina web,
+            contribuciones y cómo funciona todo detrás de escena. ¡Tu feedback y colaboración son bienvenidos!
+        </p>
+        <a href={githubLink} target="_blank" rel="noopener noreferrer" className="github-button">
+            <span className="button-icon-github"></span> Ir a GitHub
+        </a>
+    </section>
+);
+
+
 export default function Modelos() {
   // Código para Precipitación
   const prophetPrecipitacionCode = `
@@ -195,7 +213,7 @@ resultado = predicciones[['ds', 'yhat', 'Etiqueta']].copy()
 resultado.to_csv("H15-Ramon_Huañuna_Caudal-PREDICCION_365DIAS.csv", index=False, float_format='%.2f')
   `;
 
-  // NUEVO CÓDIGO PARA TEMPERATURA
+  // CÓDIGO PARA TEMPERATURA
   const prophetTemperaturaCode = `
 import pandas as pd
 from prophet import Prophet
@@ -385,7 +403,6 @@ print(f"📝 Predicciones: {output_csv_file}")
         </p>
         <ul>
             <li><strong>Tendencia general:</strong> ¿Está lloviendo más o menos a lo largo de los años?</li>
-            {/* CORRECCIÓN: Asegúrate de que este </strong> esté bien escrito */}
             <li><strong>Patrones estacionales:</strong> ¿Qué meses conforman la temporada de lluvias y la temporada seca en la zona del Antisana?</li>
         </ul>
         <p>
@@ -422,6 +439,12 @@ print(f"📝 Predicciones: {output_csv_file}")
           animationDelay={0.8}
         />
       </div>
+
+      {/* NUEVA SECCIÓN: Visita Nuestro Código en GitHub */}
+      <GithubSection
+        githubLink="https://github.com/ChrisCueva3693/Antisana"
+        animationDelay={1.0} // Un poco de retardo para que aparezca después de los ModelPosts
+      />
 
       <footer className="modelos-footer">
         <p>¡Y así es como funciona! En el proyecto Antisana - Guardián del Agua, hemos creado una caja de herramientas de predicción flexible y poderosa. Esto nos permite monitorear eficientemente múltiples puntos de nuestra región y ser verdaderos guardianes del ciclo del agua.</p>
